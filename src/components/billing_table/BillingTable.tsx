@@ -19,12 +19,11 @@ const HeaderRow = () => {
 
 interface TableRowProps {
   rownumber: number;
-  // setRowNumber: React.Dispatch<React.SetStateAction<number>>;
-  onChange: (e: any) => void;
-  value: number
 };
 
-const columnConfig = [
+type ColType = { label: string, id: string, editable: boolean };
+type ColState = { price: number, quantity: number, total: number };
+const columnConfig: ColType[] = [
   { label: "S.No", id: "s_no", editable: false },
   { label: "Items", id: "items", editable: true },
   { label: "Price", id: "price", editable: true },
@@ -32,39 +31,63 @@ const columnConfig = [
   { label: "Total", id: "total", editable: false }
 ]
 
-const TableRow = ({ rownumber, onChange }: TableRowProps) => {
+const TableRow = ({ rownumber }: TableRowProps) => {
+  const [values, setValues] = useState<ColState>({ price: 0, quantity: 0, total: 0 })
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement> , id: string) =>{
+    setValues({...values, [id]: e.target.value})
+  }
+  const getValue = (config: ColType) => {
+    if (config.id === "s_no") {
+      return rownumber;
+    } else if (config.id === "total") {
+      return values["total"];
+    }
+  }
+
+  const getType = (config: ColType) => {
+    if (config.id === "items"){
+      return "text"
+    }
+    else{
+      return "number"
+    }
+  }
+
+  const updateValue = (e: React.KeyboardEvent<HTMLTableRowElement>) => {
+    if (e.key === 'Enter') {
+      setValues({...values, total: values.price * values.quantity})
+    }
+  }
+
   return (
     <tbody>
+      <tr onKeyDown={ (e) => updateValue(e)  }>
       {columnConfig.map((config) =>
         config.editable ? (
+
           <td>
-            <input autoFocus={config.id == "items"}
-            ></input>
+            <input type={getType(config)} autoFocus={config.id === 'items'} onChange={(e) => handleChange(e, config.id) } ></input>
           </td>
         ) : (
           <td>
-            {config.id == "s_no" ? rownumber : '0'}
+            {getValue(config)}
           </td>
         )
       )}
+      </tr>
     </tbody>
   )
 };
 
-interface BillingTableProps {
-  price: number;
-  setPrice: React.Dispatch<React.SetStateAction<number>>;
-};
-
-const BillingTable = ({ price, setPrice }: BillingTableProps) => {
+const BillingTable = () => {
   const [rownumber, setRowNumber] = useState<number>(1)
 
   return (
     <div className="table-container">
       <table id="myTable">
         <HeaderRow />
-        <TableRow rownumber={rownumber} value={price}
-          onChange={(e: any) => setPrice(e.target.value)} />
+        <TableRow rownumber={rownumber} />
       </table>
     </div>
   )
