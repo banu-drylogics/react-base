@@ -1,0 +1,41 @@
+table, tr, td, th {
+  width: 200%;
+  border-collapse: collapse;
+  border: 2px solid black;
+}
+
+td,th{
+ width: 100px;
+ text-align: left;
+ padding: 2px;
+}
+
+tr:nth-child(even){
+  background-color: #f2f2f2;
+}
+th{
+  font-weight: lighter;
+}
+td{
+  color: black;
+
+}
+input{
+  border: none;
+  width: 98%;
+  outline: none;
+}
+
+.btn {
+  position: static;
+  padding: 8px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  display: inline-block;
+}
+
+.container{
+  display: flex;
+  flex-direction: row;
+  justify-content:space-evenly;
+}
