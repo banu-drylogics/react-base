@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import './styles.css'
 
 const columnsArray = ["S.No", "Items", "Price", "Quantity", "Total"];
@@ -8,8 +8,8 @@ const HeaderRow = () => {
     <thead>
       <tr>
         {
-          columnsArray.map((col) =>
-            <td className="text-center">{col}</td>
+          columnsArray.map((col, index) =>
+            <td key={index} className="text-center">{col}</td>
           )
         }
       </tr>
@@ -21,8 +21,12 @@ interface TableRowProps {
   rownumber: number;
 };
 
-type ColType = { label: string, id: string, editable: boolean };
-type ColState = { price: number, quantity: number, total: number };
+type EditableField = "items" | "price" | "quantity";
+type NonEditableField = "s_no" | "total";
+type NonEditableColType = { label: string, id: NonEditableField, editable: false };
+type EditableColType = { label: string, id: EditableField, editable: true };
+type ColType = NonEditableColType | EditableColType;
+type ColState = { items: string, price: number, quantity: number, total: number };
 const columnConfig: ColType[] = [
   { label: "S.No", id: "s_no", editable: false },
   { label: "Items", id: "items", editable: true },
@@ -32,11 +36,17 @@ const columnConfig: ColType[] = [
 ]
 
 const TableRow = ({ rownumber }: TableRowProps) => {
-  const [values, setValues] = useState<ColState>({ price: 0, quantity: 0, total: 0 })
+  const [values, setValues] = useState<ColState>({ items: '', price: 0, quantity: 0, total: 0 })
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement> , id: string) =>{
-    setValues({...values, [id]: e.target.value})
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>, id: EditableField) => {
+    setValues({ ...values, [id]: e.target.value });
   }
+
+  useEffect(() => {
+    const total = values.price * values.quantity;
+    setValues({ ...values, total })
+  }, [values.price, values.quantity]);
+
   const getValue = (config: ColType) => {
     if (config.id === "s_no") {
       return rownumber;
@@ -46,35 +56,34 @@ const TableRow = ({ rownumber }: TableRowProps) => {
   }
 
   const getType = (config: ColType) => {
-    if (config.id === "items"){
+    if (config.id === "items") {
       return "text"
     }
-    else{
+    else {
       return "number"
     }
   }
 
   const updateValue = (e: React.KeyboardEvent<HTMLTableRowElement>) => {
     if (e.key === 'Enter') {
-      setValues({...values, total: values.price * values.quantity})
+      setValues({ ...values, total: values.price * values.quantity })
     }
   }
 
   return (
     <tbody>
-      <tr onKeyDown={ (e) => updateValue(e)  }>
-      {columnConfig.map((config) =>
-        config.editable ? (
-
-          <td>
-            <input type={getType(config)} autoFocus={config.id === 'items'} onChange={(e) => handleChange(e, config.id) } ></input>
-          </td>
-        ) : (
-          <td>
-            {getValue(config)}
-          </td>
-        )
-      )}
+      <tr onKeyDown={updateValue}>
+        {columnConfig.map((config) =>
+          config.editable ? (
+            <td key={config.id}>
+              <input type={getType(config)} autoFocus={config.id === 'items'} onChange={(e) => handleChange(e, config.id)} ></input>
+            </td>
+          ) : (
+            <td key={config.id}>
+              {getValue(config)}
+            </td>
+          )
+        )}
       </tr>
     </tbody>
   )
