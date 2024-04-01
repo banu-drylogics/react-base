@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import './styles.css'
+import { ColState } from "./types";
+import InputRow from "./InputRow";
 import Row from "./Row";
-import { EditableColType } from "./types";
-import NonEditableRow from "./NonEditableRow";
+var _ = require('lodash');
 
 
 const columnsArray = ["S.No", "Items", "Price", "Quantity", "Total"];
@@ -21,12 +22,15 @@ const HeaderRow = () => {
   );
 };
 
-type ColState = { items: string, price: number, quantity: number, total: number };
-const INITIAL_STATE: ColState = { items: '', price: 0, quantity: 0, total: 0 }
+const INITIAL_STATE: ColState = { items: '', price: 0, quantity: '0', total: 0 }
 
-const TableRows = () => {
+interface TableRowsProps {
+  collectedRecords: ColState[];
+  setCollectedRecords: React.Dispatch<React.SetStateAction<ColState[]>>;
+}
+
+const TableRows = ({ collectedRecords, setCollectedRecords }: TableRowsProps) => {
   const [record, setRecord] = useState<ColState>(INITIAL_STATE);
-  const [collectedRecords, setCollectedRecords] = React.useState<ColState[]>([]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>, id: string) => {
     setRecord({ ...record, [id]: e.target.value });
@@ -46,24 +50,45 @@ const TableRows = () => {
     <tbody>
       {collectedRecords.map((rec, index) =>
         <tr key={index} >
-          <NonEditableRow index={index} record={rec} />
+          <Row index={index} record={rec} />
         </tr>
       )}
       <tr>
-        <Row handleChange={(e, id) => handleChange(e, id)} record={record} addRow={(e, itemInputRef) => addRow(e, itemInputRef)} setRecord={setRecord} />
+        <InputRow handleChange={(e, id) => handleChange(e, id)} record={record} addRow={(e, itemInputRef) => addRow(e, itemInputRef)} setRecord={setRecord} />
       </tr>
     </tbody>
   )
 };
 
 const BillingTable = () => {
+  const [collectedRecords, setCollectedRecords] = React.useState<ColState[]>([]);
+
+  const getTotal = () => {
+    const totalValue = collectedRecords.reduce((n, { total }) => n + total, 0);
+    return _.round(totalValue, 2);
+  };
+
+  const getQuantity = () => {
+    const totalQuantity = collectedRecords.reduce((n, { quantity }) => n + parseInt(quantity), 0);
+    return totalQuantity;
+
+  };
+
+  const getItems = () => {
+    const uniqItems = _.uniq(_.map(collectedRecords, (rec: ColState) => rec.items));
+    return uniqItems.length;
+  }
+
 
   return (
     <div className="table-container">
       <table id="myTable">
         <HeaderRow />
-        <TableRows />
+        <TableRows collectedRecords={collectedRecords} setCollectedRecords={setCollectedRecords} />
       </table>
+      <div>Quantity: {getQuantity()}</div>
+      <div>Items: {getItems()}</div>
+      <div>Total: {getTotal()}</div>
     </div>
   )
 };

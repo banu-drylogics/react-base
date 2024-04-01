@@ -1,64 +1,33 @@
-import React, { useEffect, useRef } from "react";
-import './styles.css'
-import { ColType, EditableColType } from "./types";
+import React from "react";
 import { columnConfig } from "./data";
+import { ColType } from "./types";
 
 
-interface RowProps {
-  handleChange: (e: React.ChangeEvent<HTMLInputElement>, id: string) => void;
-  addRow: (e: React.KeyboardEvent<HTMLDivElement>, itemInputRef: React.RefObject<HTMLInputElement>) => void;
+interface NonEditableRowProps {
+  index: number;
   record: any;
-  setRecord: React.Dispatch<React.SetStateAction<any>>;
 }
 
-const Row = ({ handleChange, addRow, record, setRecord }: RowProps) => {
+const Row = ({ index, record }: NonEditableRowProps) => {
 
-const itemInputRef = React.useRef<HTMLInputElement>(null);
-
-  const getType = (config: ColType) => {
-    if (config.id === "items") {
-      return "text"
-    }
-    else {
-      return "number"
-    }
-  }
-
-  useEffect(() => {
-    const total = record.price * record.quantity;
-    setRecord({ ...record, total })
-  }, [record.price, record.quantity]);
-
-  const getRecord = (config: ColType) => {
+  const getRecord = (config: ColType, index: number) => {
     if (config.id === "s_no") {
-      return '#';
-    } else if (config.id === "total") {
-      return record["total"];
+      return index + 1;
+    } else {
+      return record[config.id];
     }
-  }
+  };
 
   return (
     <>
-      {columnConfig.map((config, c_index) =>
-        config.editable ? (
-          <td key={config.id}>
-            <input type={getType(config)}
-              ref={config.id === 'items' ? itemInputRef : undefined}
-              value={record[config.id]}
-              autoFocus={config.id === 'items'} onChange={(e) => handleChange(e, config.id)}
-              onKeyDown={(e) => addRow(e, itemInputRef)}
-              required></input>
-          </td>
-        ) : (
-          <td key={config.id}>
-            {getRecord(config)}
-          </td>
-        )
+      {columnConfig.map((config) =>
+        <td key={config.id}>
+          {getRecord(config, index)}
+        </td>
       )}
     </>
   )
 
+};
 
-}
-
-export default Row;
+export default Row
