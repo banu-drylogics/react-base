@@ -57,8 +57,6 @@ const itemInputRef = React.useRef<HTMLInputElement>(null);
       )}
     </>
   )
-
-
 }
 
 export default InputRow;

@@ -3,12 +3,12 @@ import { columnConfig } from "./data";
 import { ColType } from "./types";
 
 
-interface NonEditableRowProps {
+interface RowProps {
   index: number;
   record: any;
 }
 
-const Row = ({ index, record }: NonEditableRowProps) => {
+const Row = ({ index, record }: RowProps) => {
 
   const getRecord = (config: ColType, index: number) => {
     if (config.id === "s_no") {
@@ -27,7 +27,6 @@ const Row = ({ index, record }: NonEditableRowProps) => {
       )}
     </>
   )
-
 };
 
 export default Row
