@@ -3,6 +3,7 @@ import './styles.css'
 import { ColState } from "./types";
 import InputRow from "./InputRow";
 import Row from "./Row";
+import { allReports } from "./data";
 var _ = require('lodash');
 
 
@@ -46,6 +47,7 @@ const TableRows = ({ collectedRecords, setCollectedRecords }: TableRowsProps) =>
       }
     }
   }
+
   return (
     <tbody>
       {collectedRecords.map((rec, index) =>
@@ -62,6 +64,19 @@ const TableRows = ({ collectedRecords, setCollectedRecords }: TableRowsProps) =>
 
 const BillingTable = () => {
   const [collectedRecords, setCollectedRecords] = React.useState<ColState[]>([]);
+
+  const fetchData = async () => {
+    await new Promise<ColState[]>(() =>
+      setTimeout(() =>
+        setCollectedRecords([...allReports]),
+        2000
+      )
+    );
+  }
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   const getTotal = () => {
     const totalValue = collectedRecords.reduce((n, { total }) => n + total, 0);
