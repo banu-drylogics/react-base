@@ -63,7 +63,7 @@ const TableRows = ({ collectedRecords, setCollectedRecords }: TableRowsProps) =>
 };
 
 const fetchData = () => {
- return new Promise<ColState[]>((resolve) =>
+  return new Promise<ColState[]>((resolve) =>
     setTimeout(() => {
       resolve(allReports);
     }, 2000
@@ -75,9 +75,8 @@ const BillingTable = () => {
   const [collectedRecords, setCollectedRecords] = React.useState<ColState[]>([]);
 
   const updateTable = async () => {
-    const fetch = fetchData();
-    setCollectedRecords([... await fetch])
-  };
+    fetchData().then((data) => setCollectedRecords(data));
+  }
 
   useEffect(() => {
     updateTable();
