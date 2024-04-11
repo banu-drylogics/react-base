@@ -5,7 +5,6 @@ import BillingTable from './components/billing_table';
 
 function App() {
 
-
   return (
     <div className="container">
       < BillingTable />

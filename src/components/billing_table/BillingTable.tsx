@@ -66,16 +66,18 @@ const fetchData = () => {
   return new Promise<ColState[]>((resolve) =>
     setTimeout(() => {
       resolve(allReports);
-    }, 2000
+    }, 5000
     )
   );
 }
 
 const BillingTable = () => {
   const [collectedRecords, setCollectedRecords] = React.useState<ColState[]>([]);
+  const [isTableFetching, setIsTableFetching] = React.useState<boolean>(true);
 
   const updateTable = async () => {
-    fetchData().then((data) => setCollectedRecords(data));
+    setCollectedRecords(await fetchData())
+    setIsTableFetching(false);
   }
 
   useEffect(() => {
@@ -98,6 +100,9 @@ const BillingTable = () => {
     return uniqItems.length;
   }
 
+   if (isTableFetching) {
+    return <div className="loader">Loading ...</div>
+   }
 
   return (
     <div className="table-container">

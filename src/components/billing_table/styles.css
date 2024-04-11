@@ -1,26 +1,33 @@
-table, tr, td, th {
+table,
+tr,
+td,
+th {
   width: 200%;
   border-collapse: collapse;
   border: 2px solid black;
 }
 
-td,th{
- width: 100px;
- text-align: left;
- padding: 2px;
+td,
+th {
+  width: 100px;
+  text-align: left;
+  padding: 2px;
 }
 
-tr:nth-child(even){
+tr:nth-child(even) {
   background-color: #f2f2f2;
 }
-th{
+
+th {
   font-weight: lighter;
 }
-td{
+
+td {
   color: black;
 
 }
-input{
+
+input {
   border: none;
   width: 98%;
   outline: none;
@@ -34,8 +41,24 @@ input{
   display: inline-block;
 }
 
-.container{
+.container {
   display: flex;
   flex-direction: row;
-  justify-content:space-evenly;
+  justify-content: space-evenly;
+}
+
+.table-container {
+  display: block;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  font-size: large;
+}
+
+.loader {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  top: 190px;
+  font-size: large;
 }
