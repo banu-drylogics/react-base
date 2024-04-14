@@ -62,27 +62,34 @@ const TableRows = ({ collectedRecords, setCollectedRecords }: TableRowsProps) =>
   )
 };
 
-const fetchData = () => {
-  return new Promise<ColState[]>((resolve) =>
-    setTimeout(() => {
-      resolve(allReports);
-    }, 5000
-    )
-  );
+interface FetchProps {
+  setCollectedRecords: React.Dispatch<React.SetStateAction<ColState[]>>;
+};
+
+const useFetchData = ({ setCollectedRecords }: FetchProps) => {
+  const [isTableFetching, setIsTableFetching] = React.useState<boolean>(true);
+
+  useEffect(() => {
+    const fetch = () => {
+      return new Promise<ColState[]>((resolve) =>
+        setTimeout(() => {
+          resolve(allReports);
+        }, 2000
+        )
+      )
+    };
+    (async () => {
+      setCollectedRecords(await fetch());
+      setIsTableFetching(false);
+    })();
+  }, [])
+  return isTableFetching;
 }
+
 
 const BillingTable = () => {
   const [collectedRecords, setCollectedRecords] = React.useState<ColState[]>([]);
-  const [isTableFetching, setIsTableFetching] = React.useState<boolean>(true);
-
-  const updateTable = async () => {
-    setCollectedRecords(await fetchData())
-    setIsTableFetching(false);
-  }
-
-  useEffect(() => {
-    updateTable();
-  }, []);
+  const isFetching = useFetchData({ setCollectedRecords });
 
   const getTotal = () => {
     const totalValue = collectedRecords.reduce((n, { total }) => n + total, 0);
@@ -100,9 +107,9 @@ const BillingTable = () => {
     return uniqItems.length;
   }
 
-   if (isTableFetching) {
+  if (isFetching) {
     return <div className="loader">Loading ...</div>
-   }
+  }
 
   return (
     <div className="table-container">
