@@ -17,18 +17,18 @@ export const useFetchData = ({ setCollectedRecords }: FetchProps) => {
   const [isTableFetching, setIsTableFetching] = React.useState<boolean>(true);
 
   useEffect(() => {
+    (async () => {
       const fetch = () => {
-          return new Promise<ColState[]>((resolve) =>
-              setTimeout(() => {
-                  resolve(allReports);
-              }, 2000
-              )
+        return new Promise<ColState[]>((resolve) =>
+          setTimeout(() => {
+            resolve(allReports);
+          }, 2000
           )
+        )
       };
-      (async () => {
-          setCollectedRecords(await fetch());
-          setIsTableFetching(false);
-      })();
+      setCollectedRecords(await fetch());
+      setIsTableFetching(false);
+    })();
   }, [])
   return isTableFetching;
 }
