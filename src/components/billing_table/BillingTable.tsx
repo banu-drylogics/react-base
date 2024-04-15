@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import './styles.css'
 import { ColState } from "./types";
 import InputRow from "./InputRow";
 import Row from "./Row";
-import { allReports } from "./data";
+import { useFetchData } from "./data";
 var _ = require('lodash');
-
 
 const columnsArray = ["S.No", "Items", "Price", "Quantity", "Total"];
 
@@ -61,31 +60,6 @@ const TableRows = ({ collectedRecords, setCollectedRecords }: TableRowsProps) =>
     </tbody>
   )
 };
-
-interface FetchProps {
-  setCollectedRecords: React.Dispatch<React.SetStateAction<ColState[]>>;
-};
-
-const useFetchData = ({ setCollectedRecords }: FetchProps) => {
-  const [isTableFetching, setIsTableFetching] = React.useState<boolean>(true);
-
-  useEffect(() => {
-    const fetch = () => {
-      return new Promise<ColState[]>((resolve) =>
-        setTimeout(() => {
-          resolve(allReports);
-        }, 2000
-        )
-      )
-    };
-    (async () => {
-      setCollectedRecords(await fetch());
-      setIsTableFetching(false);
-    })();
-  }, [])
-  return isTableFetching;
-}
-
 
 const BillingTable = () => {
   const [collectedRecords, setCollectedRecords] = React.useState<ColState[]>([]);

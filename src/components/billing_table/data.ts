@@ -1,3 +1,4 @@
+import React, { useEffect } from "react";
 import { ColState, ColType } from "./types";
 
 export const columnConfig: ColType[] = [
@@ -7,6 +8,30 @@ export const columnConfig: ColType[] = [
   { label: "Quantity", id: "quantity", editable: true },
   { label: "Total", id: "total", editable: false }
 ]
+
+interface FetchProps {
+  setCollectedRecords: React.Dispatch<React.SetStateAction<ColState[]>>;
+};
+
+export const useFetchData = ({ setCollectedRecords }: FetchProps) => {
+  const [isTableFetching, setIsTableFetching] = React.useState<boolean>(true);
+
+  useEffect(() => {
+      const fetch = () => {
+          return new Promise<ColState[]>((resolve) =>
+              setTimeout(() => {
+                  resolve(allReports);
+              }, 2000
+              )
+          )
+      };
+      (async () => {
+          setCollectedRecords(await fetch());
+          setIsTableFetching(false);
+      })();
+  }, [])
+  return isTableFetching;
+}
 
 export const allReports: ColState[] =
   [
