@@ -17,8 +17,8 @@ const filterOperator = (conditions: ConditionProps) => {
 };
 
 const filterCriterias = (conditions: ConditionProps) => {
-    const criterias: any[] = [];
-    _.forEach(conditions, (condition: any) => {
+    const criterias: ConditionProps[] = [];
+    _.forEach(conditions, (condition: ConditionProps[]) => {
         if (Array.isArray(condition) || !isOperator(condition)) {
             criterias.push(condition);
         }
@@ -43,7 +43,7 @@ const hasCondition = (item: any, criteria: ConditionProps) => {
     }
 };
 
-const applyCondition = (item: any, operator: string, criterias: any): boolean => {
+const applyCondition = (item: any, operator: string, criterias: ConditionProps[]): boolean => {
     switch (operator) {
         case 'and':
             return criterias.every((criteria: any) => hasCondition(item, criteria));
