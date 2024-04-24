@@ -35,7 +35,7 @@ const filterCriterias = (conditions: ConditionProps) => {
     return criterias;
 }
 
-const updateKey = (key: string): string => key === 'from_country' ? 'country' : 'gender_is' ? 'gender' : key;
+const updateKey = (key: string): string => (key === "from_country") ? "country" : (key === "gender_is") ? "gender" : key;
 
 const checkCondition = (item: JsonItemsProps, criteria: ConditionProps): any => {
     const hasOperator = filterOperator(criteria);
