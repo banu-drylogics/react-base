@@ -17,7 +17,7 @@ const Modal = ({ message, onClose }: ModalProps) => {
           <div className="sentiment-confirmation-modal-buttons">
             <div onClick={onClose} className="sentiment-button cancel">Cancel</div>
             <div onClick={onClose} className="sentiment-button ok">OK</div>
-            {/* <div className="sentiment-button" onClick={onClose} aria-label="close"></div> */}
+            <div className="crud-modal-close lfs lf-close" role="button" aria-label="close" onClick={onClose}>x</div>
           </div>
         </div>
 

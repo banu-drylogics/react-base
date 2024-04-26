@@ -4,16 +4,16 @@ import Modal from "./Modal";
 interface SimpleButtonProps {
   text: string;
   onClick?: () => void;
+  disabled: boolean;
   tooltip?: string;
   message?: string;
 }
 
-const SimpleButton = ({ text, onClick, tooltip, message }: SimpleButtonProps) => {
+const SimpleButton = ({ text, onClick, disabled = false, tooltip, message }: SimpleButtonProps) => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [isHovering, setIsHovering] = useState<boolean>(false);
   const referenceElement = useRef<HTMLButtonElement>(null);
   const tooltipElement = useRef<HTMLDivElement>(null);
-  const [disabled, setbuttonState] = useState(false);
 
   const handleButtonClick = () => {
     if (!disabled && onClick) {
@@ -34,7 +34,6 @@ const SimpleButton = ({ text, onClick, tooltip, message }: SimpleButtonProps) =>
 
   const closeModal = () => {
     setIsModalOpen(false);
-    setbuttonState(true);
   };
 
   return (
