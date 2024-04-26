@@ -30,11 +30,11 @@ const HeaderRow = ({ getCol }: HeaderRowProps) => {
 const INITIAL_STATE: ColState = { items: '', price: 0, quantity: '0', total: 0 }
 
 interface TableRowsProps {
-  sortRec: ColState[];
+  sortedRecords: ColState[];
   setCollectedRecords: React.Dispatch<React.SetStateAction<ColState[]>>;
 }
 
-const TableRows = ({ setCollectedRecords, sortRec }: TableRowsProps) => {
+const TableRows = ({ setCollectedRecords, sortedRecords }: TableRowsProps) => {
   const [record, setRecord] = useState<ColState>(INITIAL_STATE);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>, id: string) => {
@@ -45,7 +45,7 @@ const TableRows = ({ setCollectedRecords, sortRec }: TableRowsProps) => {
     if (e.key === 'Enter') {
       const isDataValid = (Object.values(record).every((ele) => ele !== 0 && ele !== ''))
       if (isDataValid) {
-        setCollectedRecords([{ ...record }, ...sortRec]);
+        setCollectedRecords([{ ...record }, ...sortedRecords]);
         setRecord(INITIAL_STATE);
         itemInputRef.current?.focus();
       }
@@ -54,7 +54,7 @@ const TableRows = ({ setCollectedRecords, sortRec }: TableRowsProps) => {
 
   return (
     <tbody>
-      {sortRec.map((rec, index) =>
+      {sortedRecords.map((rec, index) =>
         <tr key={index} >
           <Row index={index} record={rec} />
         </tr>
@@ -110,7 +110,7 @@ const BillingTable = () => {
     <div className="table-container">
       <table id="myTable">
         <HeaderRow getCol={(col) => getCol(col)} />
-        <TableRows sortRec={sortRecords(defaultColumn, order)} setCollectedRecords={setCollectedRecords} />
+        <TableRows sortedRecords={sortRecords(defaultColumn, order)} setCollectedRecords={setCollectedRecords} />
       </table>
       <div>Quantity: {getQuantity()}</div>
       <div>Items: {getItems()}</div>
