@@ -39,7 +39,7 @@ const itemInputRef = React.useRef<HTMLInputElement>(null);
 
   return (
     <>
-      {columnConfig.map((config, c_index) =>
+      {columnConfig.map((config) =>
         config.editable ? (
           <td key={config.id}>
             <input type={getType(config)}

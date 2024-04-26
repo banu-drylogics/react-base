@@ -1,20 +1,25 @@
 import React, { useState } from "react";
-import './styles.css'
-import { ColState } from "./types";
 import InputRow from "./InputRow";
 import Row from "./Row";
-import { useFetchData } from "./data";
+import { columnConfig, useFetchData } from "./data";
+import './styles.css';
+import { ColState, ColType, } from "./types";
 var _ = require('lodash');
 
 const columnsArray = ["S.No", "Items", "Price", "Quantity", "Total"];
+interface HeaderRowProps {
+  getCol: (col: string) => void;
+}
 
-const HeaderRow = () => {
+const HeaderRow = ({ getCol }: HeaderRowProps) => {
+
   return (
     <thead>
       <tr>
         {
           columnsArray.map((col, index) =>
-            <td key={index} className="text-center">{col}</td>
+            <td key={index} className="text-center" onClick={() => getCol(col)}>{col}
+            </td>
           )
         }
       </tr>
@@ -25,11 +30,11 @@ const HeaderRow = () => {
 const INITIAL_STATE: ColState = { items: '', price: 0, quantity: '0', total: 0 }
 
 interface TableRowsProps {
-  collectedRecords: ColState[];
+  sortRec: ColState[];
   setCollectedRecords: React.Dispatch<React.SetStateAction<ColState[]>>;
 }
 
-const TableRows = ({ collectedRecords, setCollectedRecords }: TableRowsProps) => {
+const TableRows = ({ setCollectedRecords, sortRec }: TableRowsProps) => {
   const [record, setRecord] = useState<ColState>(INITIAL_STATE);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>, id: string) => {
@@ -40,7 +45,7 @@ const TableRows = ({ collectedRecords, setCollectedRecords }: TableRowsProps) =>
     if (e.key === 'Enter') {
       const isDataValid = (Object.values(record).every((ele) => ele !== 0 && ele !== ''))
       if (isDataValid) {
-        setCollectedRecords([{ ...record }, ...collectedRecords]);
+        setCollectedRecords([{ ...record }, ...sortRec]);
         setRecord(INITIAL_STATE);
         itemInputRef.current?.focus();
       }
@@ -49,7 +54,7 @@ const TableRows = ({ collectedRecords, setCollectedRecords }: TableRowsProps) =>
 
   return (
     <tbody>
-      {collectedRecords.map((rec, index) =>
+      {sortRec.map((rec, index) =>
         <tr key={index} >
           <Row index={index} record={rec} />
         </tr>
@@ -64,22 +69,38 @@ const TableRows = ({ collectedRecords, setCollectedRecords }: TableRowsProps) =>
 const BillingTable = () => {
   const [collectedRecords, setCollectedRecords] = React.useState<ColState[]>([]);
   const isFetching = useFetchData({ setCollectedRecords });
+  const [defaultColumn, setColumn] = useState<string>('total');
+  const [order, setOrder] = useState<string>('desc');
 
   const getTotal = () => {
     const totalValue = collectedRecords.reduce((n, { total }) => n + total, 0);
     return _.round(totalValue, 2);
   };
 
+  const sortRecords = (col: string, order: string) => {
+    const key = col.toLowerCase();
+    const allRecords = _.orderBy(collectedRecords, (rec: ColState) => rec[key], order)
+    return allRecords;
+  }
+
   const getQuantity = () => {
     const totalQuantity = collectedRecords.reduce((n, { quantity }) => n + parseInt(quantity), 0);
     return totalQuantity;
-
   };
 
   const getItems = () => {
     const uniqItems = _.uniq(_.map(collectedRecords, (rec: ColState) => rec.items));
     return uniqItems.length;
-  }
+  };
+
+  const getCol = (col: string) => {
+    const isSortable = _.find(columnConfig, (config: ColType) => config.label === col).sortable;
+    if (isSortable) {
+      setColumn(col);
+      (order === 'asc') ? setOrder('desc') : setOrder('asc');
+      sortRecords(col, order);
+    };
+  };
 
   if (isFetching) {
     return <div className="loader">Loading ...</div>
@@ -88,8 +109,8 @@ const BillingTable = () => {
   return (
     <div className="table-container">
       <table id="myTable">
-        <HeaderRow />
-        <TableRows collectedRecords={collectedRecords} setCollectedRecords={setCollectedRecords} />
+        <HeaderRow getCol={(col) => getCol(col)} />
+        <TableRows sortRec={sortRecords(defaultColumn, order)} setCollectedRecords={setCollectedRecords} />
       </table>
       <div>Quantity: {getQuantity()}</div>
       <div>Items: {getItems()}</div>
