@@ -1,15 +1,15 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import Modal from "./Modal";
 
 interface SimpleButtonProps {
   text: string;
-  onClick?: () => void;
+  onClick: () => void;
   disabled: boolean;
-  tooltip?: string;
-  message?: string;
+  message: string;
+  hovered: boolean;
 }
 
-const SimpleButton = ({ text, onClick, disabled = false, tooltip, message }: SimpleButtonProps) => {
+const SimpleButton = ({ text, onClick, disabled = false, message, hovered = false }: SimpleButtonProps) => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [isHovering, setIsHovering] = useState<boolean>(false);
   const referenceElement = useRef<HTMLButtonElement>(null);
@@ -23,7 +23,7 @@ const SimpleButton = ({ text, onClick, disabled = false, tooltip, message }: Sim
   };
 
   const handleMouseEnter = () => {
-    if (disabled) {
+    if (!disabled) {
       setIsHovering(true);
     }
   };
@@ -38,29 +38,34 @@ const SimpleButton = ({ text, onClick, disabled = false, tooltip, message }: Sim
 
   return (
     <div>
-      <div className="button-container"
+      <div className="container"
+        data-testid="container"
+        id="container"
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >
         <button
-          className={`main-button ${disabled ? 'disabled' : ''}`}
+          data-testid="container__button"
+          id='container__button'
+          className={`container__button ${disabled ? 'disabled' : ''}`}
           onClick={handleButtonClick}
           disabled={disabled}
           ref={referenceElement}
         >
           {text}
         </button>
-        {disabled && isHovering && (
+        {!disabled && isHovering && hovered && (
           <div
+            id="tooltip-container"
             className="tooltip-container"
             ref={tooltipElement}
           >
-            {tooltip}
+            {message}
           </div>
         )}
       </div>
 
-      {isModalOpen && <Modal message={message} onClose={closeModal} />}
+      {isModalOpen && !hovered && <Modal message={message} onClose={closeModal} data-testid="modal" />}
     </div>
   );
 };

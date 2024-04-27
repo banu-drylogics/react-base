@@ -14,13 +14,26 @@ type Story = StoryObj<typeof meta>;
 export const OpenPopup: Story = {
     args: {
         text: 'Click Me!!!',
-        message: 'Do you want to adjust the emotion on this comment from Surprise to Fear?'
+        disabled: false,
+        message: 'Do you want to adjust the emotion on this comment from Surprise to Fear?',
+        hovered: false
     }
 };
 
 export const ButtonDisabled: Story = {
     args: {
         text: 'Click Me',
-        tooltip: 'Unable to View the Modal'
+        disabled: true,
+        message: 'Do you want to adjust the emotion on this comment from Surprise to Fear?',
+        hovered: false
+    }
+};
+
+export const CustomTooltip: Story = {
+    args: {
+        text: 'Hover Me',
+        disabled: false,
+        message: 'Do you want to adjust the emotion on this comment from Surprise to Fear?',
+        hovered: true
     }
 };

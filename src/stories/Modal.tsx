@@ -1,26 +1,34 @@
 
 import React from "react";
-import './simplebutton.css';
+import './simplebutton.scss';
 
 interface ModalProps {
-  message?: string;
+  message: string;
   onClose: () => void;
 }
+interface ButtonProps {
+  className: string;
+  onClick: () => void;
+  name: string;
+}
+
+const Button = ({ className, onClick, name }: ButtonProps) => {
+  return (
+    <div className={className} onClick={onClick}>{name}</div>
+  )
+};
 
 const Modal = ({ message, onClose }: ModalProps) => {
   return (
-    <div className="lfm-modal">
-      <div className="lfm-modal-inner">
-        <div className="sentiment-confirmation-modal">
-          <div className="sentiment-confirmation-modal-header">Submit Your Feedback: Emotion</div>
-          <div className="sentiment-confirmation-modal-subheader">{message}</div>
-          <div className="sentiment-confirmation-modal-buttons">
-            <div onClick={onClose} className="sentiment-button cancel">Cancel</div>
-            <div onClick={onClose} className="sentiment-button ok">OK</div>
-            <div className="crud-modal-close lfs lf-close" role="button" aria-label="close" onClick={onClose}>x</div>
-          </div>
+    <div className="modal">
+      <div className="modal__inner">
+        <div className="modal__header"> Submit Your Feedback</div>
+        <div className="modal__message">{message}</div>
+        <div className="modal__button">
+          <Button className="modal__button cancel" onClick={onClose} name='Cancel' />
+          <Button className="modal__button ok" onClick={onClose} name='OK' />
+          <Button className="modal__button close" onClick={onClose} name='x' />
         </div>
-
       </div>
     </div>
   );
