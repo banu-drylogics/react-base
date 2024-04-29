@@ -1,4 +1,4 @@
-.modal {
+.crud-modal {
     position: fixed;
     inset: 0px;
     background: rgba(125, 125, 125, 0.7);
@@ -50,15 +50,8 @@
             height: 32px;
             cursor: pointer;
             color: #0081ED;
-        }
-
-        &.cancel {
-            padding: 12px 24px;
-            font-size: 12px;
-            text-transform: uppercase;
-            height: 32px;
-            cursor: pointer;
-            color: #404041;
+            position: relative;
+            left: 58px;
         }
 
         &.close {
@@ -74,8 +67,8 @@
             letter-spacing: 0;
             line-height: 20px;
             position: relative;
-            right: -14px;
-            top: -99px;
+            bottom: 99px;
+            left: 0px;
         }
     }
 }
@@ -96,12 +89,13 @@
         padding: 9px 16px;
         text-align: center;
 
-        &.disabled {
+        &--disabled {
             cursor: not-allowed;
             border-color: #e3e4e6;
         }
     }
 }
+
 
 .tooltip-container {
     background: #404041;

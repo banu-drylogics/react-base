@@ -20,7 +20,7 @@ export const OpenPopup: Story = {
     }
 };
 
-export const ButtonDisabled: Story = {
+export const DisabledButton: Story = {
     args: {
         text: 'Click Me',
         disabled: true,

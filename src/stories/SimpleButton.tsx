@@ -45,9 +45,9 @@ const SimpleButton = ({ text, onClick, disabled = false, message, hovered = fals
         onMouseLeave={handleMouseLeave}
       >
         <button
-          data-testid="container__button"
-          id='container__button'
-          className={`container__button ${disabled ? 'disabled' : ''}`}
+          data-testid="container-button"
+          id='container-button'
+          className={'container__button'.concat(disabled ? ' container__button--disabled' : '')}
           onClick={handleButtonClick}
           disabled={disabled}
           ref={referenceElement}
@@ -64,7 +64,6 @@ const SimpleButton = ({ text, onClick, disabled = false, message, hovered = fals
           </div>
         )}
       </div>
-
       {isModalOpen && !hovered && <Modal message={message} onClose={closeModal} data-testid="modal" />}
     </div>
   );
