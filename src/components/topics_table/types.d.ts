@@ -12,4 +12,3 @@ export type ColState = {
   updated_at: string;
   [key: string]: string | number;
 };
-

@@ -2,7 +2,6 @@ import { columnConfig } from "./data";
 import { ColState } from "./types";
 var _ = require('lodash');
 
-
 interface TableRowProps {
   records: ColState[];
 }
@@ -21,5 +20,4 @@ export const TableRow = ({ records }: TableRowProps) => {
       )}
     </tbody>
   )
-
 }

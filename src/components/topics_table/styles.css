@@ -50,3 +50,10 @@ td {
     flex-direction: row;
     justify-content: space-evenly;
 }
+
+.loader {
+    align-content: center;
+    text-align: center;
+    font-size: larger;
+
+}

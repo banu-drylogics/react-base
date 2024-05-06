@@ -17,5 +17,4 @@ export const HeaderRow = ({ headers }: HeaderProps) => {
       </tr>
     </thead>
   )
-
 };
