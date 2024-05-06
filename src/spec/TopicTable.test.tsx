@@ -3,6 +3,7 @@ import { HeaderRow } from "../components/topics_table/HeaderRow";
 import { screen } from '@testing-library/react'
 import { TableRow } from "../components/topics_table/TableRow";
 import LoadMoreButton from "../components/topics_table/LoadMoreButton";
+import { ColState } from "../components/topics_table/types";
 
 describe('TopicsTable', () => {
   test('headers text test', () => {
@@ -15,7 +16,7 @@ describe('TopicsTable', () => {
   });
 
   test('row has text test', () => {
-    const testData = [{
+    const testData: ColState[] = [{
       created_at: "2017-01-31T20:58:27Z",
       created_by: "Microsoft",
       curated: true,
@@ -36,7 +37,8 @@ describe('TopicsTable', () => {
     tableRows.forEach(row => {
       const cells = row.getElementsByTagName('td');
       Array.from(cells).forEach(cell => {
-        if (cell.textContent.includes(testData[0].description)) {
+        const textContent = cell?.textContent ?? "Default Value";
+        if (textContent.includes(testData[0].description)) {
           found = true;
         }
       });

@@ -1,12 +1,12 @@
 
 import React from 'react';
 import './App.css';
-import TopicsTable from './components/topics_table/TopicsTable';
+import LoaderWithTableView from './components/topics_table/TopicsTable';
 
 function App() {
   return (
     <div>
-      <TopicsTable />
+      <LoaderWithTableView />
     </div>
   )
 }

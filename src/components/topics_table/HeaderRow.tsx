@@ -1,7 +1,7 @@
 import './styles.css';
 
 interface HeaderProps {
-  headers: any;
+  headers: string[];
 }
 
 export const HeaderRow = ({ headers }: HeaderProps) => {

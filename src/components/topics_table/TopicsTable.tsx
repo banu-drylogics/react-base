@@ -1,21 +1,29 @@
 import { useEffect, useState } from "react";
-import { useGetTopicsQuery } from "../../services/githubAPI";
-import { ColState } from "./types";
 import { HeaderRow } from "./HeaderRow";
-import { TableRow } from "./TableRow";
 import LoadMoreButton from "./LoadMoreButton";
+import Loader from "./Loader";
+import { TableRow } from "./TableRow";
+import { ColState, DataFormat } from "./types";
+import { useGetTopicsQuery } from "../../hooks/useGetTopicsQuery";
 var _ = require('lodash');
 
-const TopicsTable = () => {
-  const [page, setPage] = useState(1);
+interface TopicsTableProps {
+  data: DataFormat;
+  page: number;
+  setPage: React.Dispatch<React.SetStateAction<number>>;
+}
+
+const TopicsTable = ({ data, page, setPage }: TopicsTableProps) => {
   const [topics, setTopics] = useState<ColState[]>([]);
-  const { data, isLoading, isError } = useGetTopicsQuery({ q: 'javascript-applications', per_page: 20, page });
 
   const handleLoadMore = () => {
     setPage(prevPage => prevPage + 1);
   };
 
-  const CloumnArray = (data) ? _.keys(data.items[0]).map((d: string) => d.split('_').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')) : undefined;
+  const cloumnArray = _.keys(data.items[0])
+    .map((d: string) => d.split('_')
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' '));
 
   useEffect(() => {
     if (data) {
@@ -23,16 +31,12 @@ const TopicsTable = () => {
     }
   }, [data])
 
-  if (isLoading) return <div className='loader'>Loading...</div>;
-
-  if (isError) return <div>Error: Unable to fetch topics.</div>;
-
   return (
     <div>
       <h1>Git Topics</h1>
       <div className="container">
         <table>
-          <HeaderRow headers={CloumnArray} />
+          <HeaderRow headers={cloumnArray} />
           <TableRow records={topics} />
         </table>
       </div>
@@ -43,4 +47,15 @@ const TopicsTable = () => {
   );
 }
 
-export default TopicsTable
+const LoaderWithTableView = () => {
+  const [page, setPage] = useState(1);
+  const { data, isLoading, isError } = useGetTopicsQuery({ q: 'javascript-applications', per_page: 20, page });
+
+  return (
+    <Loader isLoading={isLoading} isError={isError}>
+      <TopicsTable data={data} page={page} setPage={setPage} />
+    </Loader>
+  )
+};
+
+export default LoaderWithTableView
