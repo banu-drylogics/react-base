@@ -1,0 +1,52 @@
+table,
+tr,
+td,
+th {
+    width: 200%;
+    border-collapse: collapse;
+    border: 2px solid black;
+}
+
+td,
+th {
+    width: 10px;
+    text-align: left;
+    padding: 2px;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+th {
+    font-weight: bold;
+}
+
+td {
+    color: black;
+
+}
+
+.button {
+    background-color: #EA4C89;
+    border-radius: 8px;
+    border-style: none;
+    box-sizing: border-box;
+    color: #FFFFFF;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 14px;
+    font-weight: 500;
+    height: 40px;
+    line-height: 20px;
+    padding: 10px 16px;
+    position: relative;
+    top: 10px;
+    left: 700px;
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}

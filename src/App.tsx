@@ -18,6 +18,10 @@ import './App.css';
 
 import React, { useEffect, useState } from 'react';
 import { useGetTopicsQuery } from './services/githubAPI';
+import { HeaderRow } from './components/topics_table/HeaderRow';
+import { TableRow } from './components/topics_table/TableRow';
+import { ColState } from './components/topics_table/types';
+var _ = require('lodash');
 
 interface Topic {
   id: string;
@@ -26,13 +30,14 @@ interface Topic {
 
 function App() {
   const [page, setPage] = useState(1);
-  const [topics, setTopics] = useState<Topic[]>([]);
-  const { data, isLoading, isError } = useGetTopicsQuery({ q: 'js', per_page: 25, page });
+  const [topics, setTopics] = useState<ColState[]>([]);
+  const { data, isLoading, isError } = useGetTopicsQuery({ q: 'javascript-applications', per_page: 20, page });
 
   const handleLoadMore = () => {
     setPage(prevPage => prevPage + 1);
-    console.log(data);
   };
+
+  const CloumnArray = (data) ? _.keys(data.items[0]).map((d: string) => d.split('_').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')) : undefined;
 
   useEffect(() => {
     if (data) {
@@ -40,19 +45,21 @@ function App() {
     }
   }, [data])
 
-  if (isLoading) return <div className='loader'>Loading...</div>
+  if (isLoading) return <div className='loader'>Loading...</div>;
 
   if (isError) return <div>Error: Unable to fetch topics.</div>;
+
   return (
     <div>
       <h1>Git Topics</h1>
-      <ul>
-        {topics.map((topic: Topic) => (
-          <li key={topic.id}>{topic.name}</li>
-        ))}
-      </ul>
-      {data && data.total_count > page * 25 && (
-        <button onClick={handleLoadMore}>Load More</button>
+      <div className="container">
+        <table>
+          <HeaderRow headers={CloumnArray} />
+          <TableRow records={topics} />
+        </table>
+      </div>
+      {data && data.total_count > page * 20 && (
+        <button className='button' onClick={handleLoadMore}>Load More</button>
       )}
     </div>
   );
