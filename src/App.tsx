@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import './App.css';
-import BillingTable from './components/billing_table';
+import ChildrenCharacterView from './components/children-character/ChildrenCharacterView';
 
 
 function App() {
 
   return (
     <div className="container">
-      < BillingTable />
+      <div className='children-container'>
+        <ChildrenCharacterView />
+      </div>
     </div>
   );
 }
