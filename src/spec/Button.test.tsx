@@ -4,14 +4,14 @@ import SimpleButton from "../stories/SimpleButton";
 
 describe('SimpleButton', () => {
   test('button text test', () => {
-    const { container } = render(<SimpleButton text={'Click Me'} disabled={false} />);
+    const { container } = render(<SimpleButton text={'Click Me'} disabled={false} message={""} hovered={false} />);
     container.querySelector('.container__button');
     expect(screen.getByText('Click Me')).toBeInTheDocument();
     expect(container.firstChild).toBeNull;
   });
 
   test('button state test', () => {
-    const { container } = render(<SimpleButton text={'Click Me'} disabled={true} />);
+    const { container } = render(<SimpleButton text={'Click Me'} disabled={true} message={""} hovered={false} />);
     container.querySelector('.container__button');
     const ele = document.getElementById('container-button');
     expect(screen.getByText('Click Me')).toBeInTheDocument();
@@ -21,7 +21,7 @@ describe('SimpleButton', () => {
   test('disabled button no hovering text test', () => {
     render(
       <SimpleButton
-        text={'Click Me'} disabled={true} 
+        text={'Click Me'} disabled={true} message={''} hovered={false}
       />
     );
     fireEvent.mouseEnter(screen.getByTestId("container-button"));
@@ -29,13 +29,13 @@ describe('SimpleButton', () => {
   });
 
   test('enabled button hovering text test', async () => {
-    render(<SimpleButton text={'Click Me'} disabled={false} message={"Unable to View Now"} />);
+    render(<SimpleButton text={'Click Me'} disabled={false} message={"Unable to View Now"} hovered={true} />);
     fireEvent.mouseEnter(screen.getByTestId("container-button"));
     expect(screen.findByText("Unable to View Now")).toBeNull;
   });
 
   test('opens modal when button is clicked test', async () => {
-    render(<SimpleButton text={'Click Me'} disabled={false} />);
+    render(<SimpleButton text={'Click Me'} disabled={false} message={''} hovered={false} />);
     fireEvent.click(screen.getByTestId("container-button"));
     waitFor(() => {
       expect(screen.findByText("Submit Your Feedback: Emotion")).toBeInTheDocument();
