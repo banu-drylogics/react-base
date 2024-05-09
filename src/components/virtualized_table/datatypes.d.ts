@@ -1,13 +1,12 @@
 export type ColState = {
-    "Complaint ID": number,
-    "Submitted via": string,
-    "Date submitted": number,
-    "Date received": number,
+    "Complaint": number,
+    "Submitted": string,
+    "Date": number,
+    "Recevied": number,
     "State": string,
     "Product": string,
-    "Sub-product": string,
+    "Sub": string,
     "Issue": string,
-    "Company response to consumer": string,
-    "Timely response?": string,
+    "Response": string,
     [key: string]: string | number;
 }
