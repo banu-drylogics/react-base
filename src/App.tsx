@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
 import './App.css';
-import BillingTable from './components/billing_table';
+import DonutChart from './components/dount/Dount';
+import { updatedData } from './components/dount/chartdata';
 
 
 function App() {
 
   return (
     <div className="container">
-      < BillingTable />
+      < DonutChart data={updatedData} />
     </div>
   );
 }
