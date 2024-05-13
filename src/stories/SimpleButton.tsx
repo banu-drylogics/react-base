@@ -3,7 +3,7 @@ import Modal from "./Modal";
 
 interface SimpleButtonProps {
   text: string;
-  onClick: () => void;
+  onClick?: () => void;
   disabled: boolean;
   message: string;
   hovered: boolean;
