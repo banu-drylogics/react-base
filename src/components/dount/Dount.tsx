@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import DrawDonut from "./DrawDonut";
+import DrawDonut from "./utils";
 import { Data } from "./types";
 import './styles.scss';
 import Legend from "./Legend";

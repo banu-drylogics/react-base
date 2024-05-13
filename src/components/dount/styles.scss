@@ -24,21 +24,28 @@
     border: 1px solid black;
 }
 
-.tooltip {
-    border: 1px solid black;
-    height: 62px;
-    width: 200px;
+div.tooltip {
+    position: absolute;
     background-color: white;
-    padding: 10px 10px;
-    border-radius: 10%;
-
-    &_header {
-        font-size: 15px;
-    }
-
-    &_value {
-        font-size: 15px;
-        position: relative;
-        top: 22px;
-    }
+    border: 1px solid black;
+    padding: 5px;
 }
+
+// .tooltip {
+//     border: 1px solid black;
+//     height: 62px;
+//     width: 200px;
+//     background-color: white;
+//     padding: 10px 10px;
+//     border-radius: 10%;
+
+//     &_header {
+//         font-size: 15px;
+//     }
+
+//     &_value {
+//         font-size: 15px;
+//         position: relative;
+//         top: 22px;
+//     }
+// }
