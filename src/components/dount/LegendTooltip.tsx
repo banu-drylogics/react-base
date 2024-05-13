@@ -16,7 +16,7 @@ const LegendTooltip = ({ tooltipContent }: LegendTooltipProps) => {
   useEffect(() => {
     setStyle({
       position: "absolute",
-      left: tooltipContent.position.x + 80,
+      left: tooltipContent.position.x,
       top: tooltipContent.position.y - 50
     });
   }, [tooltipContent.position]);

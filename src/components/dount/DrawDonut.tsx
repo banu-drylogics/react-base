@@ -1,4 +1,5 @@
 import * as d3 from "d3";
+import { Data } from "./types";
 const _ = require('lodash');
 
 const DrawDonut = (element: any, data: any, setTooltipContent: any) => {
@@ -26,8 +27,8 @@ const DrawDonut = (element: any, data: any, setTooltipContent: any) => {
   const svg = d3.select(element)
     .append('svg')
     .attr("width", '400')
-    .attr("height", '500')
-    .attr('viewBox', '0 0 ' + 540 + ' ' + 550)
+    .attr("height", '420')
+    .attr('viewBox', '0 0 ' + 577 + ' ' + 424)
     .append("g")
     .attr("transform", "translate(" + Math.min(width, height) / 1.5 + "," + Math.min(width, height) / 1.8 + ")");
 
@@ -48,13 +49,14 @@ const DrawDonut = (element: any, data: any, setTooltipContent: any) => {
     .attr("stroke", "#fff")
     .style("stroke-width", "2")
     .style("opacity", "0.8")
-
     .on('mouseover', function (event, d) {
       const tooltipContent = d.data;
       showTooltip(tooltipContent, { x: event.pageX, y: event.pageY });
     })
     .on('mouseout', function (d) {
-      hideTooltip();
+      setTimeout(() => {
+        hideTooltip()
+      }, 7000);
     });
 
   svg
@@ -88,6 +90,45 @@ const DrawDonut = (element: any, data: any, setTooltipContent: any) => {
     .style("font-size", 25)
     .style('font-weight', 'bold')
     .attr("y", 16);
+
+  const svgHeight = parseInt(svg.attr('height') || '0');
+  const legendHeight = 290;
+  const legendPadding = 10;
+
+  const legendGroup = svg.append('g')
+    .attr('class', 'legend')
+    .attr('transform', `translate(-150, ${svgHeight - legendHeight})`)
+
+  legendGroup.append('rect')
+    .attr('width', '90%')
+    .attr('height', 60)
+    .style('fill', 'rgb(238, 231, 231)')
+    .attr('transform', 'translate(-105,-23)');
+
+  legendGroup.append('text')
+    .text('Legend: ')
+    .style('font-size', '25px')
+    .style('fill', '#333')
+    .attr('transform', 'translate(-105,18)');
+
+  const legendLabels = legendGroup.selectAll('.legend-label')
+    .data(data)
+    .enter()
+    .append('g')
+    .attr('class', 'legend-label')
+    .attr('transform', (d, i) => `translate(${i * (100 + legendPadding)}, 0)`); // Adjust the horizontal position of each legend item
+
+  legendLabels.append('rect')
+    .attr('width', 20)
+    .attr('height', 20)
+    .style('fill', (d, i) => colors[i]);
+
+  legendLabels.append('text')
+    .text((d: any) => d.channelName)
+    .attr('x', 25)
+    .attr('y', 15)
+    .style('font-size', '18px')
+    .style('fill', '#333');
 };
 
 export default DrawDonut;

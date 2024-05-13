@@ -6,7 +6,7 @@ export type Data = {
   "data_for_str": string,
   "value": number,
   "delta": number,
-  [key: string]: string | number;
+  [key: string | number]: string | number;
 }
 
 export type UpdtedData = {

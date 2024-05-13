@@ -16,7 +16,6 @@ const DonutChart = ({ data }: DonutChartProps) => {
 
   useEffect(() => {
     if (ref.current) {
-      debugger
       DrawDonut(ref.current, data, setTooltipContent);
     }
   }, [ref]);
@@ -24,7 +23,6 @@ const DonutChart = ({ data }: DonutChartProps) => {
   return (
     <>
       <div className="dount" ref={ref}>
-        <Legend />
         {tooltipContent && <LegendTooltip tooltipContent={tooltipContent} />}
       </div>
     </>
