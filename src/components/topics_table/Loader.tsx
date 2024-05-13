@@ -19,7 +19,7 @@ const ErrorPage = () => {
 
 const Loader = ({ isLoading, isError, children }: LoaderProps) => {
   return (
-    isLoading ? <Loading /> : isError ? <ErrorPage /> : <>{children}</>      
+    isLoading ? <Loading /> : isError ? <ErrorPage /> : <>{children}</>
   )
 
 };

@@ -48,9 +48,7 @@ describe('TopicsTable', () => {
 
   test('load more button text test', () => {
     const { container } = render(<LoadMoreButton />);
-    container.querySelector('.button');
     expect(screen.getByText('Load More')).toBeInTheDocument();
-    expect(container.firstChild).toBeNull
   });
 
   test('load more not available when loaded all test', async () => {

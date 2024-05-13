@@ -3,12 +3,12 @@ import { HeaderRow } from "./HeaderRow";
 import LoadMoreButton from "./LoadMoreButton";
 import Loader from "./Loader";
 import { TableRow } from "./TableRow";
-import { ColState, DataFormat } from "./types";
-import { useGetTopicsQuery } from "../../hooks/useGetTopicsQuery";
-var _ = require('lodash');
+import { ColState, ApiDataFormat } from "./types";
+import { useTopicsQuery } from "../../hooks/useTopicsQuery";
+import _ from "lodash";
 
 interface TopicsTableProps {
-  data: DataFormat;
+  data: ApiDataFormat;
   page: number;
   setPage: React.Dispatch<React.SetStateAction<number>>;
 }
@@ -47,9 +47,9 @@ const TopicsTable = ({ data, page, setPage }: TopicsTableProps) => {
   );
 }
 
-const LoaderWithTableView = () => {
+const TableWithLoader = () => {
   const [page, setPage] = useState(1);
-  const { data, isLoading, isError } = useGetTopicsQuery({ q: 'javascript-applications', per_page: 20, page });
+  const { data, isLoading, isError } = useTopicsQuery({ q: 'javascript-applications', per_page: 20, page });
 
   return (
     <Loader isLoading={isLoading} isError={isError}>
@@ -58,4 +58,4 @@ const LoaderWithTableView = () => {
   )
 };
 
-export default LoaderWithTableView
+export default TableWithLoader

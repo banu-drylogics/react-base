@@ -1,6 +1,6 @@
 import { columnConfig } from "./data";
 import { ColState } from "./types";
-var _ = require('lodash');
+import _ from "lodash";
 
 interface TableRowProps {
   records: ColState[];
