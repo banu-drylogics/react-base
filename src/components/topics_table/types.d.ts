@@ -13,7 +13,7 @@ export type ColState = {
   [key: string]: string | number | boolean;
 };
 
-export type DataFormat = {
+export type ApiDataFormat = {
   total_count: number;
   incomplete_results: boolean;
   items: ColState[];
