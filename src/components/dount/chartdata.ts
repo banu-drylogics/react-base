@@ -257,23 +257,14 @@ export const dountData = [
   }
 ]
 
-const modifiedData = _.groupBy(dountData, 'key');
-const dataUpdated = _.map(modifiedData, (userViews: string, username: string) => {
-  return {
+export const updatedData = _.chain(dountData)
+  .groupBy('key')
+  .map((userViews: string[], username: string) => ({
     channelName: username,
     value: _.sumBy(userViews, 'value')
-  };
-});
-
-const totalValue = _.reduce(dataUpdated, (acc: number, obj: Data) => acc + obj.value, 0);
-
-export const updatedData = _.map(dataUpdated, (obj: Data) => ({
-  ...obj,
-  sharePercent: `${Math.round((obj.value / totalValue) * 100)}%`
-}));
-
+  }))
+  .value();
 const desiredOrder = ['Facebook', 'Twitter', 'Instagram', 'TikTok'];
-
-export const colors = ["#43be19", "#0db0ad", '#da16dd', '#2b4a90', '#dd08f0']
-const ChannelNames = _.map(updatedData, (data: Data) => data.channelName)
+export const colors = ["#43be19", "#0db0ad", '#da16dd', '#2b4a90', '#dd08f0'];
+const ChannelNames = _.map(updatedData, (data: Data) => data.channelName);
 export const legendNames = _.sortBy(ChannelNames, (item: string) => desiredOrder.indexOf(item));

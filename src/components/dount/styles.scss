@@ -1,4 +1,4 @@
-.legend {
+.legend-container {
   position: relative;
   width: auto;
   display: flex;
@@ -53,7 +53,7 @@
   border: 1px solid black;
 }
 
-.tooltip {
+.tooltip-container {
   border: 1px solid black;
   height: 62px;
   width: 200px;
