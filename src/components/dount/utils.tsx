@@ -6,20 +6,21 @@ import { colors } from "./chartdata";
 import { ModifiedData } from "./types";
 
 const DrawDonut = (element: HTMLElement, data: ModifiedData[]) => {
-  const width = 640;
+  const width = 600;
   const height = 400;
   const innerRadius = 100;
   const outerRadius = Math.min(width, height) / 2;
   const radius = Math.min(width, height) / 1.3;
+  const innerHole = radius / 3.3;
   const legendPosition = d3.arc().innerRadius(radius / 1.75).outerRadius(radius);
   const totalShare = `${_.sumBy(data, d => parseInt(d.sharePercent))}%`
   d3.select(element).select("svg").remove();
 
   const svg = d3.select(element)
     .append('svg')
-    .attr("width", '400')
-    .attr("height", '420')
-    .attr('viewBox', '0 0 ' + 577 + ' ' + 424)
+    .attr("width", '400px')
+    .attr("height", '420px')
+    .attr('viewBox', '0 0 ' + width + ' ' + height)
     .append("g")
     .attr("transform", "translate(" + Math.min(width, height) / 1.5 + "," + Math.min(width, height) / 1.8 + ")");
 
@@ -63,7 +64,7 @@ const DrawDonut = (element: HTMLElement, data: ModifiedData[]) => {
       });
       tooltipInstances.set(tooltip, popperInstance);
     })
-    .on('mousemove', function (event) {
+    .on('mousemove', function (event: MouseEvent) {
       const tooltip = document.querySelector('.tooltip') as HTMLElement;
       if (tooltip && tooltip.parentNode) {
         const offsetX = event.clientX;
@@ -72,13 +73,13 @@ const DrawDonut = (element: HTMLElement, data: ModifiedData[]) => {
       }
     })
     .on('mouseout', function (_d) {
-      const tooltip = document.querySelector('.tooltip');
+      const tooltip: HTMLElement = document.querySelector('.tooltip')!;
       if (tooltip && tooltip.parentNode) {
         tooltip.parentNode.removeChild(tooltip);
-        const popperInstance = tooltipInstances.get(tooltip as Element as HTMLElement);
+        const popperInstance = tooltipInstances.get(tooltip);
         if (popperInstance) {
           popperInstance.destroy();
-          tooltipInstances.delete(tooltip as Element as HTMLElement);
+          tooltipInstances.delete(tooltip);
         }
       }
     });
@@ -88,7 +89,7 @@ const DrawDonut = (element: HTMLElement, data: ModifiedData[]) => {
     .attr('class', 'donut-hole')
     .append('circle')
     .attr('class', 'donut-hole')
-    .attr('r', radius / 3.3)
+    .attr('r', innerHole)
     .attr('fill', 'none')
     .attr('stroke', '#c7c7c7')
 
@@ -97,9 +98,9 @@ const DrawDonut = (element: HTMLElement, data: ModifiedData[]) => {
     .append('text')
     .attr('class', 'donut-hole-label__text')
     .style("text-anchor", "middle")
-    .style("font-size", 25)
+    .style("font-size", '25px')
     .style('font-weight', 'bold')
-    .attr("y", 16)
+    .attr("y", '16px')
     .text(totalShare)
 
   svg
@@ -109,12 +110,12 @@ const DrawDonut = (element: HTMLElement, data: ModifiedData[]) => {
     .attr('class', 'donut-label')
     .text((d) => d.data.sharePercent)
     .style("fill", '#444')
-    .style("font-size", 12)
+    .style("font-size", '12px')
     .attr('transform', (d: d3.DefaultArcObject) => `translate(${legendPosition.centroid(d)})`)
     .style("text-anchor", "middle")
-    .style("font-size", 25)
+    .style("font-size", '25px')
     .style('font-weight', 'bold')
-    .attr("y", 16);
+    .attr("y", '16px');
 };
 
 export default DrawDonut;
