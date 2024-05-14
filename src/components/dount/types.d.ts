@@ -9,7 +9,7 @@ export type Data = {
   [key: string | number]: string | number;
 }
 
-export type UpdtedData = {
+export type ModifiedData = {
   channelName: string,
   value: number,
   sharePercent: string

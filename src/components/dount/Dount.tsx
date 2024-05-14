@@ -1,29 +1,27 @@
-import React, { useEffect, useRef, useState } from "react";
-import DrawDonut from "./utils";
-import { Data } from "./types";
+import { useEffect, useRef, useState } from "react";
 import './styles.scss';
+import { Data, ModifiedData } from "./types";
+import DrawDonut from "./utils";
 import Legend from "./Legend";
-import LegendTooltip from "./LegendTooltip";
 
 interface DonutChartProps {
-  data: Data[];
+  data: ModifiedData[];
 }
 
 const DonutChart = ({ data }: DonutChartProps) => {
-  const [tooltipContent, setTooltipContent] = useState(null);
 
   const ref = useRef(null);
 
   useEffect(() => {
     if (ref.current) {
-      DrawDonut(ref.current, data, setTooltipContent);
+      DrawDonut(ref.current, data);
     }
   }, [ref]);
 
   return (
     <>
       <div className="dount" ref={ref}>
-        {tooltipContent && <LegendTooltip tooltipContent={tooltipContent} />}
+        <Legend />
       </div>
     </>
   );

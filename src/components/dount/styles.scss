@@ -1,51 +1,63 @@
-.container {
-    height: 500px;
-    width: 450px;
+.legend {
+  position: relative;
+  width: auto;
+  display: flex;
+  align-items: center;
+  background-color: #f4f4f4;
+  border-radius: 2px;
+  font-family: "Arimo", sans-serif;
+  padding: 8px 12px;
+  padding-right: 0px;
+  font-size: 12px;
+  margin: 2px;
+
+  &_header {
+    align-self: flex-start;
+    line-height: 20px;
+    font-weight: 700;
+    margin-right: 8px;
+    color: #1e1e1e;
+  }
+
+  &_content {
+    display: flex;
+    flex-wrap: wrap;
+
+    &_name {
+      margin-right: 12px;
+      line-height: 20px;
+      display: flex;
+      align-items: center;
+
+      &_box {
+        width: 10px;
+        height: 10px;
+        border: 1px solid rgba(0, 0, 0, .2);
+        width: 12px;
+        min-width: 12px;
+        height: 12px;
+        display: inline-block;
+        margin-right: 3px;
+        border-radius: 2px;
+        font-size: 12px;
+      }
+    }
+  }
 }
-
-// .legend {
-//     background-color: rgb(237, 230, 230);
-//     height: 25px;
-//     text-align: center;
-//     padding: 5px 0px 2px;
-//     width: 337px;
-//     border-radius: 10px;
-// }
-
-// .legend-label {
-//     font-size: 14px;
-// }
 
 .dount {
-    position: absolute;
-    top: 79px;
-    padding: 22px 2px 0px 7px;
-    left: 76px;
-    border: 1px solid black;
+  position: absolute;
+  top: 79px;
+  padding: 22px 2px 0px 7px;
+  left: 76px;
+  border: 1px solid black;
 }
 
-div.tooltip {
-    position: absolute;
-    background-color: white;
-    border: 1px solid black;
-    padding: 5px;
+.tooltip {
+  border: 1px solid black;
+  height: 62px;
+  width: 200px;
+  background-color: white;
+  padding: 10px 10px;
+  border-radius: 10%;
 }
-
-// .tooltip {
-//     border: 1px solid black;
-//     height: 62px;
-//     width: 200px;
-//     background-color: white;
-//     padding: 10px 10px;
-//     border-radius: 10%;
-
-//     &_header {
-//         font-size: 15px;
-//     }
-
-//     &_value {
-//         font-size: 15px;
-//         position: relative;
-//         top: 22px;
-//     }
-// }
