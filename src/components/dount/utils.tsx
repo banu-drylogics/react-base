@@ -1,9 +1,55 @@
 import * as d3 from "d3";
 import './styles.scss';
 import _ from 'lodash';
-import { colors } from "./chartdata";
+import { colors, formatNumber } from "./chartdata";
 import { ModifiedData } from "./types";
-import { format } from "d3";
+
+const createInnerCircle = (svg: d3.Selection<SVGGElement, unknown, null, undefined>, innerHole: number) => {
+  svg
+    .append('g')
+    .attr('class', 'donut-hole')
+    .append('circle')
+    .attr('class', 'donut-hole')
+    .attr('r', innerHole)
+    .attr('fill', 'none')
+    .attr('stroke', '#c7c7c7')
+};
+
+const handleTotalValue = (svg: d3.Selection<SVGGElement, unknown, null, undefined>, totalValue: number) => {
+  svg
+    .select('g.donut-hole')
+    .append('text')
+    .attr('class', 'donut-hole-label__text')
+    .style("text-anchor", "middle")
+    .style("font-size", '25px')
+    .style('font-weight', 'bold')
+    .attr("y", '16px')
+    .text(formatNumber(totalValue));
+};
+
+const formatValue = (value: number): string => {
+  const formattedValue = d3.format(".2s")(value);
+  const uppercaseFormattedValue = formattedValue.toUpperCase();
+  return uppercaseFormattedValue;
+}
+
+const handleValue = (svg: d3.Selection<SVGGElement, unknown, null, undefined>, arcGenerator: d3.PieArcDatum<ModifiedData>[],
+  legendPosition: d3.Arc<any, d3.DefaultArcObject>) => {
+  svg
+    .selectAll('g.arc')
+    .data(arcGenerator)
+    .append('text')
+    .attr('class', 'donut-label')
+    // .text((d) => formatNumber(d.data.value))
+    .text(d => formatValue(d.data.value))
+    .style("fill", '#444')
+    .style("font-size", '12px')
+    .attr('transform', (d: d3.DefaultArcObject) => `translate(${legendPosition.centroid(d)})`)
+    .style("text-anchor", "middle")
+    .style("font-size", '25px')
+    .style('font-weight', 'bold')
+    .attr("y", '16px');
+}
 
 const DrawDonut = (element: HTMLElement, data: ModifiedData[], setTooltipContent: React.Dispatch<React.SetStateAction<{
   content: ModifiedData;
@@ -15,7 +61,7 @@ const DrawDonut = (element: HTMLElement, data: ModifiedData[], setTooltipContent
   const outerRadius = Math.min(width, height) / 2;
   const radius = Math.min(width, height) / 1.3;
   const innerHole = radius / 3.3;
-  const legendPosition = d3.arc().innerRadius(radius / 1.75).outerRadius(radius);
+  const legendPosition = d3.arc().innerRadius(radius / 1.65).outerRadius(radius);
   const totalValue = _.sumBy(data, d => d.value);
   d3.select(element).select("svg").remove();
 
@@ -55,39 +101,9 @@ const DrawDonut = (element: HTMLElement, data: ModifiedData[], setTooltipContent
     .on('mouseout', function hide(_d) {
       setTooltipContent(null);
     });
-
-  svg
-    .append('g')
-    .attr('class', 'donut-hole')
-    .append('circle')
-    .attr('class', 'donut-hole')
-    .attr('r', innerHole)
-    .attr('fill', 'none')
-    .attr('stroke', '#c7c7c7')
-
-  svg
-    .select('g.donut-hole')
-    .append('text')
-    .attr('class', 'donut-hole-label__text')
-    .style("text-anchor", "middle")
-    .style("font-size", '25px')
-    .style('font-weight', 'bold')
-    .attr("y", '16px')
-    .text(format('.2s')(totalValue))
-
-  svg
-    .selectAll('g.arc')
-    .data(arcGenerator)
-    .append('text')
-    .attr('class', 'donut-label')
-    .text((d) => format('.2s')(d.data.value))
-    .style("fill", '#444')
-    .style("font-size", '12px')
-    .attr('transform', (d: d3.DefaultArcObject) => `translate(${legendPosition.centroid(d)})`)
-    .style("text-anchor", "middle")
-    .style("font-size", '25px')
-    .style('font-weight', 'bold')
-    .attr("y", '16px');
+  createInnerCircle(svg, innerHole);
+  handleTotalValue(svg, totalValue);
+  handleValue(svg, arcGenerator, legendPosition);
 };
 
 export default DrawDonut;

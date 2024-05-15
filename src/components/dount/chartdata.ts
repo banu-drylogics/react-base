@@ -193,6 +193,33 @@ export const dountData = [
     "delta": 1264
   },
   {
+    "key": "Facebook",
+    "id": "4018",
+    "data_for": 1712880000,
+    "data_for_start": 1712880000,
+    "data_for_str": "2024-04-12",
+    "value": 6642,
+    "delta": 1264
+  },
+  {
+    "key": "Facebook",
+    "id": "4018",
+    "data_for": 1712880000,
+    "data_for_start": 1712880000,
+    "data_for_str": "2024-04-12",
+    "value": 6642,
+    "delta": 1264
+  },
+  {
+    "key": "Facebook",
+    "id": "4018",
+    "data_for": 1712880000,
+    "data_for_start": 1712880000,
+    "data_for_str": "2024-04-12",
+    "value": 6642,
+    "delta": 1264
+  },
+  {
     "key": "TikTok",
     "id": "4018",
     "data_for": 1712880000,
@@ -268,3 +295,17 @@ const desiredOrder = ['Facebook', 'Twitter', 'Instagram', 'TikTok'];
 export const colors = ["#43be19", "#0db0ad", '#da16dd', '#2b4a90', '#dd08f0'];
 const ChannelNames = _.map(updatedData, (data: Data) => data.channelName);
 export const legendNames = _.sortBy(ChannelNames, (item: string) => desiredOrder.indexOf(item));
+
+
+export const formatNumber = (num: number) => {
+  const formatLetters = ['', 'K', 'M', 'B', 'T'];
+  const tier = Math.log10(num) / 3 | 0;
+
+  if (tier === 0) return num.toString();
+
+  const suffix = formatLetters[tier];
+  const scale = Math.pow(10, tier * 3);
+  const scaled = num / scale;
+
+  return scaled.toFixed(1) + suffix;
+}
