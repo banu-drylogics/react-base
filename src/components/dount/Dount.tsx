@@ -10,14 +10,16 @@ interface DonutChartProps {
 }
 
 const DonutChart = ({ data }: DonutChartProps) => {
-  const [tooltipContent, setTooltipContent] = useState<{ content: ModifiedData; el: SVGPathElement } | null>(null);
+  const [tooltipContent, setTooltipContent] = useState<{
+    content: ModifiedData[]; el: SVGPathElement;
+    hoveredData: ModifiedData
+  } | null>(null);
 
   const ref = useRef(null);
 
   useEffect(() => {
     if (ref.current) {
       DrawDonut(ref.current, data, setTooltipContent);
-      console.log(tooltipContent);
     }
   }, [ref]);
 

@@ -1,8 +1,8 @@
 import * as d3 from "d3";
 import './styles.scss';
 import _ from 'lodash';
-import { colors, formatNumber } from "./chartdata";
 import { ModifiedData } from "./types";
+import { format } from "d3";
 
 const createInnerCircle = (svg: d3.Selection<SVGGElement, unknown, null, undefined>, innerCircle: number) => {
   svg
@@ -24,23 +24,22 @@ const handleTotalValue = (svg: d3.Selection<SVGGElement, unknown, null, undefine
     .style("font-size", '25px')
     .style('font-weight', 'bold')
     .attr("y", '16px')
-    .text(formatNumber(totalValue));
+    .text(formatValue(totalValue));
 };
 
-const formatValue = (value: number): string => {
-  const formattedValue = d3.format(".2s")(value);
+const formatValue = (value: number) => {
+  const formattedValue = format(".2s")(value);
   const uppercaseFormattedValue = formattedValue.toUpperCase();
   return uppercaseFormattedValue;
 }
 
-const handleValue = (svg: d3.Selection<SVGGElement, unknown, null, undefined>, arcGenerator: d3.PieArcDatum<ModifiedData>[],
+const handleValue = (svg: d3.Selection<SVGGElement, unknown, null, undefined>, nonZeroData: d3.PieArcDatum<ModifiedData>[],
   legendPosition: d3.Arc<any, d3.DefaultArcObject>) => {
   svg
     .selectAll('g.arc')
-    .data(arcGenerator)
+    .data(nonZeroData)
     .append('text')
     .attr('class', 'donut-label')
-    // .text((d) => formatNumber(d.data.value))
     .text(d => formatValue(d.data.value))
     .style("fill", '#444')
     .style("font-size", '12px')
@@ -52,8 +51,9 @@ const handleValue = (svg: d3.Selection<SVGGElement, unknown, null, undefined>, a
 }
 
 const DrawDonut = (element: HTMLElement, data: ModifiedData[], setTooltipContent: React.Dispatch<React.SetStateAction<{
-  content: ModifiedData;
+  content: ModifiedData[];
   el: SVGPathElement;
+  hoveredData: ModifiedData;
 } | null>>) => {
   const width = 600;
   const height = 400;
@@ -65,8 +65,8 @@ const DrawDonut = (element: HTMLElement, data: ModifiedData[], setTooltipContent
   const totalValue = _.sumBy(data, d => d.value);
   d3.select(element).select("svg").remove();
 
-  const showTooltip = (el: SVGPathElement, content: ModifiedData) => {
-    setTooltipContent({ content, el });
+  const showTooltip = (el: SVGPathElement, content: ModifiedData[], hoveredData: ModifiedData) => {
+    setTooltipContent({ content, el, hoveredData });
   };
 
   const svg = d3.select(element)
@@ -80,30 +80,32 @@ const DrawDonut = (element: HTMLElement, data: ModifiedData[], setTooltipContent
   const pieGenerator = d3.pie<ModifiedData>()
     .value(d => d.value);
   const arcGenerator = pieGenerator(data);
+  const nonZeroData: d3.PieArcDatum<ModifiedData>[] = arcGenerator.filter(d => d.data.value >= 0);
   const arc = d3.arc<d3.PieArcDatum<ModifiedData>>().innerRadius(innerRadius).outerRadius(outerRadius - 30);
 
   svg
     .selectAll('g')
-    .data(arcGenerator)
+    .data(nonZeroData)
     .enter()
     .append('g')
     .attr('class', 'arc')
     .append('path')
     .attr('d', arc)
-    .attr('fill', (_d, i) => colors[i])
+    .attr('fill', (d) => d.data.color)
     .attr("stroke", "#fff")
     .style("stroke-width", "2")
     .style("opacity", "0.8")
     .on('mouseover', function show(_event, d) {
-      const tooltipContent = d.data;
-      showTooltip(this, tooltipContent);
+      const tooltipContent = data;
+      const hoveredData = d.data;
+      showTooltip(this, tooltipContent, hoveredData);
     })
-    .on('mouseout', function hide(_d) {
+    .on('mouseout', function hide() {
       setTooltipContent(null);
     });
   createInnerCircle(svg, innerCircle);
   handleTotalValue(svg, totalValue);
-  handleValue(svg, arcGenerator, legendPosition);
+  handleValue(svg, nonZeroData, legendPosition);
 };
 
 export default DrawDonut;

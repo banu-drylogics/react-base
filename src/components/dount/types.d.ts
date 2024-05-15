@@ -4,13 +4,11 @@ export type Data = {
   "data_for": number,
   "data_for_start": number,
   "data_for_str": string,
-  "value": number,
-  "delta": number,
-  [key: string | number]: string | number;
+  "value": number | null,
+  "delta": number | null,
 }
-
 export type ModifiedData = {
   channelName: string,
   value: number,
-  sharePercent: string
+  color: string,
 }

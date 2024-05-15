@@ -11,7 +11,7 @@
   font-size: 12px;
   margin: 2px;
 
-  &_header {
+  &__header {
     align-self: flex-start;
     line-height: 20px;
     font-weight: 700;
@@ -19,17 +19,17 @@
     color: #1e1e1e;
   }
 
-  &_content {
+  &__content {
     display: flex;
     flex-wrap: wrap;
 
-    &_name {
+    &__name {
       margin-right: 12px;
       line-height: 20px;
       display: flex;
       align-items: center;
 
-      &_box {
+      &__box {
         width: 10px;
         height: 10px;
         border: 1px solid rgba(0, 0, 0, .2);
@@ -53,11 +53,47 @@
   border: 1px solid black;
 }
 
-.tooltip-container {
-  border: 1px solid black;
-  height: 62px;
-  width: 200px;
+.chart-tooltip-container {
+  border: 1px solid grey;
   background-color: white;
-  padding: 10px 10px;
-  border-radius: 10%;
+  padding: 11px 10px 10px 11px;
+  font-weight: bold;
+  text-align: left;
+
+  &__row {
+    display: flex;
+    justify-content: space-between;
+    padding: 3px 14px;
+
+    &--highlighted {
+      background-color: rgb(242, 233, 233);
+    }
+  }
+
+  &__content {
+    display: flex;
+    align-items: center;
+
+    &__icon {
+      width: 10px;
+      height: 10px;
+      border: 1px solid rgba(0, 0, 0, .2);
+      width: 12px;
+      min-width: 12px;
+      height: 12px;
+      display: inline-block;
+      margin-right: 3px;
+      border-radius: 2px;
+      font-size: 12px;
+    }
+
+    &__label {
+      margin-left: 4px;
+      font-weight: normal;
+    }
+  }
 }
+
+// .chart-tooltip-container__row.--highlighted {
+//   background-color: rgb(242, 233, 233);
+// }

@@ -5,8 +5,9 @@ import { ModifiedData } from './types';
 
 interface LegendTooltipProps {
   tooltipContent: {
-    content: ModifiedData;
+    content: ModifiedData[];
     el: SVGPathElement;
+    hoveredData: ModifiedData;
   };
 }
 
@@ -17,6 +18,7 @@ const LegendTooltip: React.FC<LegendTooltipProps> = ({ tooltipContent }) => {
   useEffect(() => {
     const tooltip = tooltipRef.current;
     if (!tooltip) return;
+
     const popperInstance = createPopper(tooltipContent.el, tooltip, {
       placement: 'right-start',
       modifiers: [
@@ -30,13 +32,26 @@ const LegendTooltip: React.FC<LegendTooltipProps> = ({ tooltipContent }) => {
     });
     tooltipInstances.set(tooltip, popperInstance);
 
+    const rowHighlighted = () => {
+      const rows = tooltip.querySelectorAll('.chart-tooltip-container__row');
+      rows.forEach((row: Element) => {
+        const textContent = row.textContent;
+        if (!textContent) return;
+        const rowChanelName: string = textContent.split(':')[0];
+        if (tooltipContent.hoveredData.channelName === rowChanelName) {
+          row.classList.add('chart-tooltip-container__row--highlighted');
+        } else {
+          row.classList.remove('chart-tooltip-container__row--highlighted');
+        }
+      });
+    };
+
+    rowHighlighted();
+
     const handleMouseMove = (event: MouseEvent) => {
-      const tooltip = tooltipRef.current;
-      if (tooltip && tooltip.parentNode) {
-        const offsetX = event.clientX - 70;
-        const offsetY = event.clientY - 83;
-        tooltip.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
-      }
+      const offsetX = event.clientX - 70;
+      const offsetY = event.clientY - 83;
+      tooltip.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
     };
 
     document.addEventListener('mousemove', handleMouseMove);
@@ -46,10 +61,22 @@ const LegendTooltip: React.FC<LegendTooltipProps> = ({ tooltipContent }) => {
     };
   }, [tooltipContent]);
 
-  return <div className='tooltip-container' ref={tooltipRef}>
-    <div className='tooltip-container_header'>Channel Name: {tooltipContent.content.channelName}</div>
-    <br />
-    <div className='tooltip-container_value'>Value: {tooltipContent.content.value}</div>
+
+  return <div className='chart-tooltip' ref={tooltipRef}>
+    <div className='chart-tooltip-container'>
+      {
+        tooltipContent.content.map((data: ModifiedData, idx: number) => (
+          <div className='chart-tooltip-container__row' key={idx}>
+            <div className='chart-tooltip-container__content'>
+              <i className='chart-tooltip-container__content__icon' style={{ backgroundColor: `${data.color}` }}></i>
+              <div className='chart-tooltip-container__content__label'>{data.channelName}:</div>
+            </div>
+            <div>
+              <span className='chart-tooltip-container__value'>{data.value}</span>
+            </div>
+          </div>
+        ))}
+    </div>
   </div>
 };
 

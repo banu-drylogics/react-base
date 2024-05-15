@@ -1,8 +1,7 @@
-import { Data } from "./types";
+import { Data, ModifiedData } from "./types";
+import * as _ from 'lodash';
 
-const _ = require('lodash');
-
-export const dountData = [
+export const dountData: Data[] = [
   {
     "key": "Twitter",
     "id": "4018",
@@ -27,7 +26,7 @@ export const dountData = [
     "data_for": 1713312000,
     "data_for_start": 1713312000,
     "data_for_str": "2024-04-17",
-    "value": 4188,
+    "value": -3,
     "delta": -1555
   },
   {
@@ -63,7 +62,7 @@ export const dountData = [
     "data_for": 1713225600,
     "data_for_start": 1713225600,
     "data_for_str": "2024-04-16",
-    "value": 5743,
+    "value": -3,
     "delta": -6800
   },
   {
@@ -81,7 +80,7 @@ export const dountData = [
     "data_for": 1713139200,
     "data_for_start": 1713139200,
     "data_for_str": "2024-04-15",
-    "value": 12543,
+    "value": -3,
     "delta": 10273
   },
   {
@@ -117,7 +116,7 @@ export const dountData = [
     "data_for": 1713052800,
     "data_for_start": 1713052800,
     "data_for_str": "2024-04-14",
-    "value": 2270,
+    "value": -3,
     "delta": -3095
   },
   {
@@ -180,7 +179,7 @@ export const dountData = [
     "data_for": 1712966400,
     "data_for_start": 1712966400,
     "data_for_str": "2024-04-13",
-    "value": 5365,
+    "value": -3,
     "delta": -1277
   },
   {
@@ -189,7 +188,7 @@ export const dountData = [
     "data_for": 1712880000,
     "data_for_start": 1712880000,
     "data_for_str": "2024-04-12",
-    "value": 6642,
+    "value": -3,
     "delta": 1264
   },
   {
@@ -198,25 +197,7 @@ export const dountData = [
     "data_for": 1712880000,
     "data_for_start": 1712880000,
     "data_for_str": "2024-04-12",
-    "value": 6642,
-    "delta": 1264
-  },
-  {
-    "key": "Facebook",
-    "id": "4018",
-    "data_for": 1712880000,
-    "data_for_start": 1712880000,
-    "data_for_str": "2024-04-12",
-    "value": 6642,
-    "delta": 1264
-  },
-  {
-    "key": "Facebook",
-    "id": "4018",
-    "data_for": 1712880000,
-    "data_for_start": 1712880000,
-    "data_for_str": "2024-04-12",
-    "value": 6642,
+    "value": -3,
     "delta": 1264
   },
   {
@@ -261,7 +242,7 @@ export const dountData = [
     "data_for": 1712793600,
     "data_for_start": 1712793600,
     "data_for_str": "2024-04-11",
-    "value": 5378,
+    "value": -3,
     "delta": 1819
   },
   {
@@ -282,30 +263,24 @@ export const dountData = [
     "value": 5718,
     "delta": 4977
   }
-]
+];
 
-export const updatedData = _.chain(dountData)
+const colorMapping: { [key: string]: string } = {
+  'Twitter': '#43be19',
+  'Instagram': '#0db0ad',
+  'Facebook': '#da16dd',
+  'TikTok': '#2b4a90'
+};
+
+export const updatedData: ModifiedData[] = _.chain(dountData)
   .groupBy('key')
-  .map((userViews: string[], username: string) => ({
+  .map((userViews: Data[], username: string) => ({
     channelName: username,
-    value: _.sumBy(userViews, 'value')
+    value: _.sumBy(userViews, 'value'),
+    color: colorMapping[username]
   }))
+  .sortBy(obj => {
+    const order = ['Facebook', 'Twitter', 'Instagram', 'TikTok'];
+    return order.indexOf(obj.channelName);
+  })
   .value();
-const desiredOrder = ['Facebook', 'Twitter', 'Instagram', 'TikTok'];
-export const colors = ["#43be19", "#0db0ad", '#da16dd', '#2b4a90', '#dd08f0'];
-const ChannelNames = _.map(updatedData, (data: Data) => data.channelName);
-export const legendNames = _.sortBy(ChannelNames, (item: string) => desiredOrder.indexOf(item));
-
-
-export const formatNumber = (num: number) => {
-  const formatLetters = ['', 'K', 'M', 'B', 'T'];
-  const tier = Math.log10(num) / 3 | 0;
-
-  if (tier === 0) return num.toString();
-
-  const suffix = formatLetters[tier];
-  const scale = Math.pow(10, tier * 3);
-  const scaled = num / scale;
-
-  return scaled.toFixed(1) + suffix;
-}
