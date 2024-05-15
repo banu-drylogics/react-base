@@ -4,13 +4,13 @@ import _ from 'lodash';
 import { colors, formatNumber } from "./chartdata";
 import { ModifiedData } from "./types";
 
-const createInnerCircle = (svg: d3.Selection<SVGGElement, unknown, null, undefined>, innerHole: number) => {
+const createInnerCircle = (svg: d3.Selection<SVGGElement, unknown, null, undefined>, innerCircle: number) => {
   svg
     .append('g')
     .attr('class', 'donut-hole')
     .append('circle')
     .attr('class', 'donut-hole')
-    .attr('r', innerHole)
+    .attr('r', innerCircle)
     .attr('fill', 'none')
     .attr('stroke', '#c7c7c7')
 };
@@ -60,7 +60,7 @@ const DrawDonut = (element: HTMLElement, data: ModifiedData[], setTooltipContent
   const innerRadius = 100;
   const outerRadius = Math.min(width, height) / 2;
   const radius = Math.min(width, height) / 1.3;
-  const innerHole = radius / 3.3;
+  const innerCircle = radius / 3.3;
   const legendPosition = d3.arc().innerRadius(radius / 1.65).outerRadius(radius);
   const totalValue = _.sumBy(data, d => d.value);
   d3.select(element).select("svg").remove();
@@ -101,7 +101,7 @@ const DrawDonut = (element: HTMLElement, data: ModifiedData[], setTooltipContent
     .on('mouseout', function hide(_d) {
       setTooltipContent(null);
     });
-  createInnerCircle(svg, innerHole);
+  createInnerCircle(svg, innerCircle);
   handleTotalValue(svg, totalValue);
   handleValue(svg, arcGenerator, legendPosition);
 };
