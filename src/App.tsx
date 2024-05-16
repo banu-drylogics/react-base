@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 import './App.css';
-import BillingTable from './components/billing_table';
-
+import DropDown from './components/dropdown/DropDown';
 
 function App() {
 
   return (
     <div className="container">
-      < BillingTable />
+      < DropDown />
     </div>
   );
 }
