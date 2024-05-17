@@ -1,19 +1,19 @@
 import { useEffect, useRef, useState } from "react";
 import './styles.scss';
-import { ModifiedData } from "./types";
+import { transformedDataType } from "./types";
 import DrawDonut from "./utils";
 import Legend from "./Legend";
 import ChartTooltip from "./ChartTooltip";
 
 interface DonutChartProps {
-  data: ModifiedData[];
+  data: transformedDataType[];
 }
 
 const DonutChart = ({ data }: DonutChartProps) => {
   const ref = useRef(null);
   const [tooltipContent, setTooltipContent] = useState<{
-    content: ModifiedData[]; el: SVGPathElement;
-    hoveredData: ModifiedData
+    content: transformedDataType[]; el: SVGPathElement;
+    hoveredData: transformedDataType
   } | null>(null);
 
   useEffect(() => {

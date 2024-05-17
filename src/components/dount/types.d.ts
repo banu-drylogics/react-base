@@ -7,7 +7,7 @@ export type Data = {
   "value": number | null,
   "delta": number | null,
 }
-export type ModifiedData = {
+export type transformedDataType = {
   channelName: string,
   value: number,
   color: string,

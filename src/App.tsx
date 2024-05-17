@@ -1,13 +1,13 @@
 import './App.css';
 import DonutChart from './components/dount/Dount';
-import { updatedData } from './components/dount/chartData';
+import { transformedData } from './components/dount/chartData';
 
 
 function App() {
 
   return (
     <div className="container">
-      < DonutChart data={updatedData} />
+      < DonutChart data={transformedData} />
     </div>
   );
 }

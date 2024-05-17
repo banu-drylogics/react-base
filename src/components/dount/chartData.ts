@@ -1,4 +1,4 @@
-import { Data, ModifiedData } from "./types";
+import { Data, transformedDataType } from "./types";
 import * as _ from 'lodash';
 
 export const dountData: Data[] = [
@@ -272,12 +272,12 @@ const colorMapping: { [key: string]: string } = {
   'TikTok': '#2b4a90'
 };
 
-export const updatedData: ModifiedData[] = _.chain(dountData)
+export const transformedData: transformedDataType[] = _.chain(dountData)
   .groupBy('key')
-  .map((userViews: Data[], username: string) => ({
-    channelName: username,
-    value: _.sumBy(userViews, 'value'),
-    color: colorMapping[username]
+  .map((data: Data[], channelName: string) => ({
+    channelName: channelName,
+    value: _.sumBy(data, 'value'),
+    color: colorMapping[channelName]
   }))
   .sortBy(obj => {
     const order = ['Facebook', 'Twitter', 'Instagram', 'TikTok'];

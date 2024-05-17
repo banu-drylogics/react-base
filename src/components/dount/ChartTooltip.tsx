@@ -1,13 +1,13 @@
 import './styles.scss';
 import React, { useEffect, useRef } from "react";
 import { createPopper, Instance } from '@popperjs/core';
-import { ModifiedData } from './types';
+import { transformedDataType } from './types';
 
 interface ChartTooltipProps {
   tooltipContent: {
-    content: ModifiedData[];
+    content: transformedDataType[];
     el: SVGPathElement;
-    hoveredData: ModifiedData;
+    hoveredData: transformedDataType;
   };
 }
 
@@ -45,13 +45,16 @@ const ChartTooltip = ({ tooltipContent }: ChartTooltipProps) => {
     };
   }, [tooltipContent]);
 
+  const highlightedRow = (data: transformedDataType, hoveredData: string) => {
+    return 'chart-tooltip-container__row'.concat(data.channelName === hoveredData ?
+      ' chart-tooltip-container__row--highlighted' : '')
+  };
 
   return <div className='chart-tooltip' ref={tooltipRef}>
     <div className='chart-tooltip-container'>
       {
-        tooltipContent.content.map((data: ModifiedData, idx: number) => (
-          <div className={'chart-tooltip-container__row'.concat(data.channelName == tooltipContent.hoveredData.channelName ?
-            ' chart-tooltip-container__row--highlighted' : '')}
+        tooltipContent.content.map((data: transformedDataType, idx: number) => (
+          <div className={highlightedRow(data, tooltipContent.hoveredData.channelName)}
             key={idx}>
             <div className='chart-tooltip-container__content'>
               <i className='chart-tooltip-container__content__icon' style={{ backgroundColor: `${data.color}` }}></i>
