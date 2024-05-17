@@ -1,4 +1,4 @@
-import { updatedData } from "./chartdata";
+import { updatedData } from "./chartData";
 import _ from 'lodash';
 
 const Legend = () => {

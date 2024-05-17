@@ -6,7 +6,7 @@ import { format } from "d3";
 
 const WIDTH = 600;
 const HEIGHT = 400;
-const INNERRADIUS = 100;
+const INNER_RADIUS = 100;
 
 const createInnerCircle = (svg: d3.Selection<SVGGElement, unknown, null, undefined>, innerCircle: number) => {
   svg
@@ -83,7 +83,7 @@ const DrawDonut = (element: HTMLElement, data: ModifiedData[], setTooltipContent
   const pieGenerator: d3.Pie<any, ModifiedData> = d3.pie<ModifiedData>()
     .value(d => d.value);
   const arcGenerator = pieGenerator(validData);
-  const arc = d3.arc<d3.PieArcDatum<ModifiedData>>().innerRadius(INNERRADIUS).outerRadius(outerRadius - 30);
+  const arc = d3.arc<d3.PieArcDatum<ModifiedData>>().innerRadius(INNER_RADIUS).outerRadius(outerRadius - 30);
 
   svg
     .selectAll('g')

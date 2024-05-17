@@ -1,6 +1,6 @@
 import './App.css';
 import DonutChart from './components/dount/Dount';
-import { updatedData } from './components/dount/chartdata';
+import { updatedData } from './components/dount/chartData';
 
 
 function App() {
