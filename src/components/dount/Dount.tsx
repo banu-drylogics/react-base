@@ -3,19 +3,18 @@ import './styles.scss';
 import { ModifiedData } from "./types";
 import DrawDonut from "./utils";
 import Legend from "./Legend";
-import LegendTooltip from "./LegendTooltip";
+import ChartTooltip from "./ChartTooltip";
 
 interface DonutChartProps {
   data: ModifiedData[];
 }
 
 const DonutChart = ({ data }: DonutChartProps) => {
+  const ref = useRef(null);
   const [tooltipContent, setTooltipContent] = useState<{
     content: ModifiedData[]; el: SVGPathElement;
     hoveredData: ModifiedData
   } | null>(null);
-
-  const ref = useRef(null);
 
   useEffect(() => {
     if (ref.current) {
@@ -26,7 +25,7 @@ const DonutChart = ({ data }: DonutChartProps) => {
   return (
     <div className="dount" ref={ref}>
       <Legend />
-      {tooltipContent && <LegendTooltip tooltipContent={tooltipContent} />}
+      {tooltipContent && <ChartTooltip tooltipContent={tooltipContent} />}
     </div>
   );
 };

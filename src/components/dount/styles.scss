@@ -46,11 +46,10 @@
 }
 
 .dount {
-  position: absolute;
-  top: 79px;
+  width: max-content;
   padding: 22px 2px 0px 7px;
-  left: 76px;
   border: 1px solid black;
+  // margin: 0 auto;
 }
 
 .chart-tooltip-container {
@@ -93,7 +92,3 @@
     }
   }
 }
-
-// .chart-tooltip-container__row.--highlighted {
-//   background-color: rgb(242, 233, 233);
-// }

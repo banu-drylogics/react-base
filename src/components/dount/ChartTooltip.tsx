@@ -3,7 +3,7 @@ import React, { useEffect, useRef } from "react";
 import { createPopper, Instance } from '@popperjs/core';
 import { ModifiedData } from './types';
 
-interface LegendTooltipProps {
+interface ChartTooltipProps {
   tooltipContent: {
     content: ModifiedData[];
     el: SVGPathElement;
@@ -11,7 +11,7 @@ interface LegendTooltipProps {
   };
 }
 
-const LegendTooltip: React.FC<LegendTooltipProps> = ({ tooltipContent }) => {
+const ChartTooltip = ({ tooltipContent }: ChartTooltipProps) => {
   const tooltipInstances: Map<HTMLElement, Instance> = new Map();
   const tooltipRef = useRef<HTMLDivElement | null>(null);
 
@@ -25,32 +25,16 @@ const LegendTooltip: React.FC<LegendTooltipProps> = ({ tooltipContent }) => {
         {
           name: 'offset',
           options: {
-            offset: [0, 0],
+            offset: [0, 10],
           },
         },
       ],
     });
     tooltipInstances.set(tooltip, popperInstance);
 
-    const rowHighlighted = () => {
-      const rows = tooltip.querySelectorAll('.chart-tooltip-container__row');
-      rows.forEach((row: Element) => {
-        const textContent = row.textContent;
-        if (!textContent) return;
-        const rowChanelName: string = textContent.split(':')[0];
-        if (tooltipContent.hoveredData.channelName === rowChanelName) {
-          row.classList.add('chart-tooltip-container__row--highlighted');
-        } else {
-          row.classList.remove('chart-tooltip-container__row--highlighted');
-        }
-      });
-    };
-
-    rowHighlighted();
-
     const handleMouseMove = (event: MouseEvent) => {
-      const offsetX = event.clientX - 70;
-      const offsetY = event.clientY - 83;
+      const offsetX = event.clientX + 8;
+      const offsetY = event.clientY + 3;
       tooltip.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
     };
 
@@ -66,7 +50,9 @@ const LegendTooltip: React.FC<LegendTooltipProps> = ({ tooltipContent }) => {
     <div className='chart-tooltip-container'>
       {
         tooltipContent.content.map((data: ModifiedData, idx: number) => (
-          <div className='chart-tooltip-container__row' key={idx}>
+          <div className={'chart-tooltip-container__row'.concat(data.channelName == tooltipContent.hoveredData.channelName ?
+            ' chart-tooltip-container__row--highlighted' : '')}
+            key={idx}>
             <div className='chart-tooltip-container__content'>
               <i className='chart-tooltip-container__content__icon' style={{ backgroundColor: `${data.color}` }}></i>
               <div className='chart-tooltip-container__content__label'>{data.channelName}:</div>
@@ -80,4 +66,4 @@ const LegendTooltip: React.FC<LegendTooltipProps> = ({ tooltipContent }) => {
   </div>
 };
 
-export default LegendTooltip;
+export default ChartTooltip;

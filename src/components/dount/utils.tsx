@@ -4,6 +4,10 @@ import _ from 'lodash';
 import { ModifiedData } from "./types";
 import { format } from "d3";
 
+const WIDTH = 600;
+const HEIGHT = 400;
+const INNERRADIUS = 100;
+
 const createInnerCircle = (svg: d3.Selection<SVGGElement, unknown, null, undefined>, innerCircle: number) => {
   svg
     .append('g')
@@ -55,11 +59,8 @@ const DrawDonut = (element: HTMLElement, data: ModifiedData[], setTooltipContent
   el: SVGPathElement;
   hoveredData: ModifiedData;
 } | null>>) => {
-  const width = 600;
-  const height = 400;
-  const innerRadius = 100;
-  const outerRadius = Math.min(width, height) / 2;
-  const radius = Math.min(width, height) / 1.3;
+  const outerRadius = Math.min(WIDTH, HEIGHT) / 2;
+  const radius = Math.min(WIDTH, HEIGHT) / 1.3;
   const innerCircle = radius / 3.3;
   const legendPosition = d3.arc().innerRadius(radius / 1.65).outerRadius(radius);
   const totalValue = _.sumBy(data, d => d.value);
@@ -69,23 +70,24 @@ const DrawDonut = (element: HTMLElement, data: ModifiedData[], setTooltipContent
     setTooltipContent({ content, el, hoveredData });
   };
 
-  const svg = d3.select(element)
+  const validData: ModifiedData[] = _.filter(data, (d: ModifiedData) => d.value >= 0); // Removed zero and negative value
+
+  const svg: d3.Selection<SVGGElement, unknown, null, undefined> = d3.select(element)
     .append('svg')
     .attr("width", '400px')
     .attr("height", '420px')
-    .attr('viewBox', '0 0 ' + width + ' ' + height)
+    .attr('viewBox', '0 0 ' + WIDTH + ' ' + HEIGHT)
     .append("g")
-    .attr("transform", "translate(" + Math.min(width, height) / 1.5 + "," + Math.min(width, height) / 1.8 + ")");
+    .attr("transform", "translate(" + Math.min(WIDTH, HEIGHT) / 1.5 + "," + Math.min(WIDTH, HEIGHT) / 1.8 + ")");
 
-  const pieGenerator = d3.pie<ModifiedData>()
+  const pieGenerator: d3.Pie<any, ModifiedData> = d3.pie<ModifiedData>()
     .value(d => d.value);
-  const arcGenerator = pieGenerator(data);
-  const nonZeroData: d3.PieArcDatum<ModifiedData>[] = arcGenerator.filter(d => d.data.value >= 0);
-  const arc = d3.arc<d3.PieArcDatum<ModifiedData>>().innerRadius(innerRadius).outerRadius(outerRadius - 30);
+  const arcGenerator = pieGenerator(validData);
+  const arc = d3.arc<d3.PieArcDatum<ModifiedData>>().innerRadius(INNERRADIUS).outerRadius(outerRadius - 30);
 
   svg
     .selectAll('g')
-    .data(nonZeroData)
+    .data(arcGenerator)
     .enter()
     .append('g')
     .attr('class', 'arc')
@@ -95,7 +97,7 @@ const DrawDonut = (element: HTMLElement, data: ModifiedData[], setTooltipContent
     .attr("stroke", "#fff")
     .style("stroke-width", "2")
     .style("opacity", "0.8")
-    .on('mouseover', function show(_event, d) {
+    .on('mouseover', function show(d) {
       const tooltipContent = data;
       const hoveredData = d.data;
       showTooltip(this, tooltipContent, hoveredData);
@@ -105,7 +107,7 @@ const DrawDonut = (element: HTMLElement, data: ModifiedData[], setTooltipContent
     });
   createInnerCircle(svg, innerCircle);
   handleTotalValue(svg, totalValue);
-  handleValue(svg, nonZeroData, legendPosition);
+  handleValue(svg, arcGenerator, legendPosition);
 };
 
 export default DrawDonut;
