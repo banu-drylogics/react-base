@@ -3,16 +3,14 @@ import './styles.scss';
 import { useEffect, useRef, useState } from 'react';
 
 interface SearchInputProps {
-  setFilteredOptions: React.Dispatch<React.SetStateAction<string[]>>;
   data: string[];
-  // handleSearchKeyDown: (e: React.KeyboardEvent<HTMLTextAreaElement>, searchText: string) => void;
+  setFilteredOptions: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
 const SearchInput = ({ data, setFilteredOptions }: SearchInputProps) => {
   const [searchText, setSearchText] = useState('');
-  const searchInputRef = useRef<HTMLInputElement>(null);
 
-  const handleSearchKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
+  const handleSearchKeyEnter = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (event.key === 'Enter') {
       event.preventDefault();
       updateFilteredOptions();
@@ -26,7 +24,7 @@ const SearchInput = ({ data, setFilteredOptions }: SearchInputProps) => {
     setFilteredOptions(filtered);
   }
 
-  const handleSearchChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const handleInputChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setSearchText(event.target.value);
   };
 
@@ -35,11 +33,11 @@ const SearchInput = ({ data, setFilteredOptions }: SearchInputProps) => {
   }, [data]);
 
   return (
-    <div className="input-container" ref={searchInputRef}>
+    <div className="input-container">
       <i className="search-icon fas fa-search icon"></i>
       <textarea typeof="text" className='input-container__textarea'
-        placeholder='search' onChange={handleSearchChange}
-        onKeyDown={handleSearchKeyDown}
+        placeholder='search' onChange={handleInputChange}
+        onKeyDown={handleSearchKeyEnter}
         autoFocus >
       </textarea>
     </div>

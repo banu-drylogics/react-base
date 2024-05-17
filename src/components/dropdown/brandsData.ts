@@ -180,7 +180,6 @@ export const brandData: string[] = [
   "A Journal for Jordan",
   "A Kid Called Mayonnaise",
   "Alabama Crimson Tide on 247Sports",
-  "ALALA",
   "A League of Their Own",
   "A League of Their Own - Talent Roll-Up",
   "Alex Borstein: Corsets & Clown Suits",

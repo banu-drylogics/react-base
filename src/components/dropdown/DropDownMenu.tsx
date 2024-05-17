@@ -1,13 +1,14 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import SearchInput from "./SearchInput";
 import './styles.scss';
 import '@fortawesome/fontawesome-free/css/all.css';
+import _ from 'lodash';
 
-interface DropDownListProps {
+interface DropDownMenuProps {
   data: string[];
 }
 
-const DropDownList = ({ data }: DropDownListProps) => {
+const DropDownMenu = ({ data }: DropDownMenuProps) => {
   const [filteredOptions, setFilteredOptions] = useState<string[]>([]);
   const [selectedOption, setSelectedOption] = useState<string>('')
 
@@ -22,7 +23,7 @@ const DropDownList = ({ data }: DropDownListProps) => {
     <div className="dropdown-menu-container">
       <SearchInput data={data} setFilteredOptions={setFilteredOptions} />
       <div className="dropdown-menu-container__list">
-        {filteredOptions.map((item, idx) => (
+        {_.map(filteredOptions, (item, idx) => (
           <div
             className={`dropdown-menu-container__list__row ${selectedOption === item ? 'selected' : ''}`}
             key={idx}>
@@ -43,4 +44,4 @@ const DropDownList = ({ data }: DropDownListProps) => {
 
 };
 
-export default DropDownList;
+export default DropDownMenu;

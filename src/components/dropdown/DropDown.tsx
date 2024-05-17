@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
-import DropDownList from './DropDownList';
 import './styles.scss';
 import '@fortawesome/fontawesome-free/css/all.css';
 import { brandData } from './brandsData';
+import DropDownMenu from './DropDownMenu';
 
 const DropDown = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -33,7 +33,7 @@ const DropDown = () => {
   return (
     <div className="dropdown-container" ref={dropdownRef}>
       <Button />
-      {isOpen && <DropDownList data={brandData} />}
+      {isOpen && <DropDownMenu data={brandData} />}
     </div>
   )
 };
