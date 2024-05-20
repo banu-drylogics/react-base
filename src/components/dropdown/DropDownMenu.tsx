@@ -19,20 +19,20 @@ const DropDownMenu = ({ data }: DropDownMenuProps) => {
     );
   };
 
+  const getCheckboxStatus = (item: string) => {
+    return selectedOption === item ? "far fa-check-square" : "far fa-square"
+  }
+
   return (
     <div className="dropdown-menu-container">
       <SearchInput data={data} setFilteredOptions={setFilteredOptions} />
       <div className="dropdown-menu-container__list">
         {_.map(filteredOptions, (item, idx) => (
           <div
-            className={`dropdown-menu-container__list__row ${selectedOption === item ? 'selected' : ''}`}
+            className="dropdown-menu-container__list__row"
             key={idx}>
             <i
-              className={
-                selectedOption === item
-                  ? "far fa-check-square"
-                  : "far fa-square"
-              }
+              className={getCheckboxStatus(item)}
               onClick={() => toggleOption(item)}
             ></i>
             <span className="">{item}</span>

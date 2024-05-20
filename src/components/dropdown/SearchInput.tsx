@@ -1,6 +1,7 @@
 import '@fortawesome/fontawesome-free/css/all.css';
 import './styles.scss';
-import { useEffect, useRef, useState } from 'react';
+import _ from 'lodash';
+import { useEffect, useState } from 'react';
 
 interface SearchInputProps {
   data: string[];
@@ -18,9 +19,9 @@ const SearchInput = ({ data, setFilteredOptions }: SearchInputProps) => {
   };
 
   const updateFilteredOptions = () => {
-    const filtered = data.filter(option =>
+    const filtered = _.filter(data, (option =>
       option.toLowerCase().includes(searchText.toLowerCase())
-    );
+    ));
     setFilteredOptions(filtered);
   }
 
