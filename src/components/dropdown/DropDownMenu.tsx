@@ -35,7 +35,7 @@ const DropDownMenu = ({ data }: DropDownMenuProps) => {
               className={getCheckboxStatus(item)}
               onClick={() => toggleOption(item)}
             ></i>
-            <span className="">{item}</span>
+            <span className="dropdown-menu-container__list__row__label">{item}</span>
           </div>
         ))}
       </div>

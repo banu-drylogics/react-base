@@ -47,6 +47,10 @@
       font-family: "Arimo", sans-serif;
       padding: 10px 27px 0px 11px;
 
+      &__label {
+        padding: 7px 7px 9px 7px;
+      }
+
       &:hover {
         background-color: #f0f0f0;
         cursor: pointer;
