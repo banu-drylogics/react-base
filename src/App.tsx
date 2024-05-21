@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import './App.css';
-import DropDown from './components/dropdown/DropDown';
+import DonutChart from './components/dount/Dount';
+import { transformedData } from './components/dount/chartData';
+
 
 function App() {
 
   return (
     <div className="container">
-      < DropDown />
+      < DonutChart data={transformedData} />
     </div>
   );
 }
