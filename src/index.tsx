@@ -16,6 +16,7 @@ import { MenuData } from './routes/MenuData';
 import BillingTable from './components/billing_table/BillingTable';
 import DonutChart from './components/dount/Dount';
 import { transformedData } from './components/dount/chartData';
+import DropDown from './components/dropdown/DropDown';
 
 const router = createBrowserRouter([
   {
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
   {
     path: "donut-view",
     element: < DonutChart data={transformedData} />,
+  },
+  {
+    path: "dropdown",
+    element: <DropDown />,
   }
 ]);
 
