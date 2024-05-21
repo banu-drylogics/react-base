@@ -3,13 +3,38 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import Root from "./routes/root";
+import {
+  createBrowserRouter,
+  RouterProvider,
+} from "react-router-dom";
+import ErrorPage from './error-page';
+import Contact from './routes/contacts';
+import path from 'path';
+import RecursiveMenu from './routes/RecursiveMenu';
+import { MenuData } from './routes/MenuData';
+import BillingTable from './components/billing_table/BillingTable';
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <RecursiveMenu data={MenuData} />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "billing-table",
+    element: <BillingTable />,
+  }
+]);
+
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <App />
+    {/* <App  MenuData/> */}
+    <RouterProvider router={router} />
   </React.StrictMode>
 );
 
