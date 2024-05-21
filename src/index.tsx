@@ -5,13 +5,12 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux'
 import { store } from './store';
-import Root from "./routes/root";
+// import Root from "./routes/root";
 import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
-import ErrorPage from './error-page';
-import Contact from './routes/contacts';
+// import Contact from './routes/contacts';
 import path from 'path';
 import RecursiveMenu from './routes/RecursiveMenu';
 import { MenuData } from './routes/MenuData';
@@ -22,6 +21,9 @@ import DropDown from './components/dropdown/DropDown';
 import VirtualizedTable from './components/virtualized_table/VirtualizedTable';
 import TableWithLoader from './components/topics_table/TopicsTable';
 import TextBoxComponent from './components/children-character/TextBoxComponent';
+import ErrorPage from './error-page';
+import Counter from './components/counter/Counter';
+import CounterWrapper from './components/counter';
 
 const router = createBrowserRouter([
   {
@@ -52,10 +54,13 @@ const router = createBrowserRouter([
       {
         path: "mock-table",
         element: <TableWithLoader />,
+      },
+      {
+        path: "counter",
+        element: <CounterWrapper />,
       }
     ]
   },
-
 ]);
 
 
@@ -65,7 +70,6 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      {/* <App /> */}
       <RouterProvider router={router} />
     </Provider>
   </React.StrictMode>
@@ -75,4 +79,3 @@ root.render(
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
-

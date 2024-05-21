@@ -50,15 +50,21 @@ input {
 .table-container {
   display: block;
   position: absolute;
-  top: 0px;
-  left: 0px;
+  top: 77px;
+  left: 24px;
   font-size: large;
 }
 
 .loader {
-  display: flex;
+  /* display: flex;
   justify-content: center;
   position: relative;
   top: 190px;
+  font-size: large; */
+
+  display: block;
+  position: absolute;
+  top: 190px;
+  left: 600px;
   font-size: large;
 }

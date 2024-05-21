@@ -1,4 +1,7 @@
 .dropdown-container {
+  position: relative;
+  top: 108px;
+  right: 134px;
   height: 100%;
   width: 60%;
 
@@ -32,20 +35,20 @@
 }
 
 .dropdown-menu-container {
-  position: absolute;
-  left: 720px;
-  top: 43px;
+  position: relative;
+  left: 657px;
+  top: 7px;
   border: 1px solid;
-  width: 362px;
+  width: 425px;
 
   &__list {
     list-style-type: none;
-    max-height: 150px;
+    max-height: 160px;
     overflow-y: auto;
 
     &__row {
       font-family: "Arimo", sans-serif;
-      padding: 10px 27px 0px 11px;
+      padding: 5px 49px 10px 15px;
 
       &__label {
         padding: 7px 7px 9px 7px;
@@ -66,7 +69,8 @@
   }
 }
 
-.input-container {
+.search-input-container {
+  border: none;
   align-items: center;
   background-color: white;
   border-radius: 2px;

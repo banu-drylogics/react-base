@@ -34,9 +34,9 @@ const SearchInput = ({ data, setFilteredOptions }: SearchInputProps) => {
   }, [data]);
 
   return (
-    <div className="input-container">
+    <div className="search-input-container">
       <i className="search-icon fas fa-search icon"></i>
-      <textarea typeof="text" className='input-container__textarea'
+      <textarea typeof="text" className='search-input-container__textarea'
         placeholder='search' onChange={handleInputChange}
         onKeyDown={handleSearchKeyEnter}
         autoFocus >

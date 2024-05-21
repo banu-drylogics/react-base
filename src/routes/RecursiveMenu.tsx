@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { Link } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 import _ from "lodash";
 import "./styles.scss";
 import '@fortawesome/fontawesome-free/css/all.css';
@@ -13,37 +13,40 @@ interface MenuItemProps {
 const MenuItem = ({ label, options }: MenuItemProps) => {
   const [isHovered, setIsHovered] = useState(false);
 
-  const getURL = (option: string) => {
+  const getUrl = (option: string) => {
     return option.toLowerCase().replace(' ', "-");
 
   }
 
 
   return (
-    <div className={`navigation-container__menu ${isHovered ? 'active' : ''}`}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}>
-      <div className='navigation-container__menu__header' >
-        <div className='navigation-container__menu__header__label'>{label}</div>
-        {options.length > 0 && (
-          <div className={isHovered ? 'fas fa-chevron-up icon' : 'fas fa-angle-down icon'}></div>
-        )}
-      </div>
-      {
-        isHovered && options && options.length > 0 && (
-          <div className='navigation-menu-dropdown-container' >
-            <ol className='navigation-menu-dropdown-container__options'>
-              {_.map(options, (option, index) => (
-                <li className='navigation-menu-dropdown-container__option' key={index}>
-                  <a href={getURL(option)}>{option}</a>
-                  {/* <Link to={`contacts/1`}>{option}</Link> */}
-                </li>
-              ))}
-            </ol>
+    <>
+      <div className={`navigation-container__menu ${isHovered ? 'active' : ''}`}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}>
+        <div className='navigation-container__menu__header' >
+          <div className='navigation-container__menu__header__label'>
+            {options.length === 0 ? <Link to={getUrl(label)}>{label}</Link> : label}
           </div>
-        )
-      }
-    </div >
+          {options.length > 0 && (
+            <div className={isHovered ? 'fas fa-chevron-up icon' : 'fas fa-angle-down icon'}></div>
+          )}
+        </div>
+        {
+          isHovered && options && options.length > 0 && (
+            <div className='navigation-menu-dropdown-container' >
+              <ol className='navigation-menu-dropdown-container__options'>
+                {_.map(options, (option, index) => (
+                  <li className='navigation-menu-dropdown-container__option' key={index}>
+                    <Link to={getUrl(option)}>{option}</Link>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          )
+        }
+      </div >
+    </>
   );
 };
 
@@ -60,7 +63,7 @@ const RecursiveMenu = ({ data }: any) => {
         ))}
       </nav>
       <div id="detail">
-        {/* <Outlet /> */}
+        <Outlet />
       </div>
     </>
   );

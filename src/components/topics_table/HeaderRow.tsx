@@ -1,4 +1,4 @@
-import './styles.css';
+import './styles.scss';
 
 interface HeaderProps {
   headers: string[];

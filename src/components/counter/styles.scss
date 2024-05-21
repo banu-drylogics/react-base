@@ -1,0 +1,72 @@
+.style-button-container {
+  padding: 15px 32px;
+
+  &__add-button {
+    height: 35px;
+    width: 120px;
+    border-radius: 7px;
+    color: white;
+    font-weight: 100;
+    cursor: pointer;
+    background-color: rgb(165, 14, 235);
+  }
+
+  &__reset-button {
+    height: 35px;
+    width: 120px;
+    border-radius: 7px;
+    color: white;
+    font-weight: 100;
+    background-color: rgb(165, 14, 235);
+    position: relative;
+    right: 390px;
+    cursor: pointer;
+  }
+
+  &__minus-button {
+    height: 35px;
+    width: 120px;
+    border-radius: 7px;
+    color: white;
+    font-weight: 100;
+    background-color: rgb(165, 14, 235);
+    position: relative;
+    right: 429px;
+    cursor: pointer;
+  }
+}
+
+.counter-container {
+  display: flex;
+  position: absolute;
+  left: 260px;
+  top: 390px;
+}
+
+.range-input-container {
+  width: 100%;
+  box-sizing: border-box;
+  position: relative;
+  bottom: 147px;
+  right: 218px;
+
+  &__range {
+    font-size: 30px;
+  }
+
+  &__input {
+    font-size: large;
+    border: 1px solid rgb(221, 213, 213);
+  }
+}
+
+.input-container {
+  position: relative;
+  left: -4px;
+  bottom: 249px;
+  border: none;
+
+  &__label {
+    font-size: 70px;
+  }
+}

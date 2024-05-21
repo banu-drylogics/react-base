@@ -66,9 +66,11 @@ const TextBoxComponent = ({ onTextCountChange, index = 0 }: TextBoxComponentProp
 
   return (
     <div className='text-container'>
-      <p className='text-container_header'>Characters in children: {getTotalCharacterCount()}</p>
-      <input type="text" value={inputText} onChange={handleTextChange} />
-      <button className='text-container_add' onClick={addChild} disabled={inputText === ''}>Add Child</button>
+      <p className='text-container__header'>Characters in children: {getTotalCharacterCount()}</p>
+      <input className="text-container__inputbox" placeholder='Enter Some Text Here' type="text" value={inputText} onChange={handleTextChange} />
+      <div className='text-container__button'>
+        <button className='text-container__button__add' onClick={addChild} disabled={inputText === ''}>Add Child</button>
+      </div>
       {childComponents.map((child, index) => (
         <div key={index} className={'text-container'.concat(index % 2 === 0 ? ' even' : ' odd')} >
           {
@@ -77,7 +79,7 @@ const TextBoxComponent = ({ onTextCountChange, index = 0 }: TextBoxComponentProp
                 childCount: number, index: number) => handleTextCountChange(e, childCount, index),
             })
           }
-          <button className='text-container_delete' onClick={() => handleDelete(index)}>Delete Element</button>
+          <button className='text-container__delete' onClick={() => handleDelete(index)}>Delete Element</button>
         </div>
       ))}
     </div>
