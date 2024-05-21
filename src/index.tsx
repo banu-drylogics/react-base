@@ -17,6 +17,7 @@ import BillingTable from './components/billing_table/BillingTable';
 import DonutChart from './components/dount/Dount';
 import { transformedData } from './components/dount/chartData';
 import DropDown from './components/dropdown/DropDown';
+import VirtualizedTable from './components/virtualized_table/VirtualizedTable';
 
 const router = createBrowserRouter([
   {
@@ -35,6 +36,10 @@ const router = createBrowserRouter([
   {
     path: "dropdown",
     element: <DropDown />,
+  },
+  {
+    path: "virtualized-table",
+    element: <VirtualizedTable />,
   }
 ]);
 
