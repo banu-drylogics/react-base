@@ -20,29 +20,41 @@ import DonutChart from './components/dount/Dount';
 import { transformedData } from './components/dount/chartData';
 import DropDown from './components/dropdown/DropDown';
 import VirtualizedTable from './components/virtualized_table/VirtualizedTable';
+import TableWithLoader from './components/topics_table/TopicsTable';
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <RecursiveMenu data={MenuData} />,
     errorElement: <ErrorPage />,
+    children: [
+      {
+        path: "billing-table",
+        element: <BillingTable />,
+      },
+      {
+        path: "donut-view",
+        element: < DonutChart data={transformedData} />,
+      },
+      {
+        path: "search-dropdown",
+        element: <DropDown />,
+      },
+      {
+        path: "textbox-view",
+        element: <DropDown />,
+      },
+      {
+        path: "virtualized-table",
+        element: <VirtualizedTable />,
+      },
+      {
+        path: "mock-table",
+        element: <TableWithLoader />,
+      }
+    ]
   },
-  {
-    path: "billing-table",
-    element: <BillingTable />,
-  },
-  {
-    path: "donut-view",
-    element: < DonutChart data={transformedData} />,
-  },
-  {
-    path: "dropdown",
-    element: <DropDown />,
-  },
-  {
-    path: "virtualized-table",
-    element: <VirtualizedTable />,
-  }
+
 ]);
 
 
@@ -52,8 +64,9 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
-    </Provider>,
+      {/* <App /> */}
+      <RouterProvider router={router} />
+    </Provider>
   </React.StrictMode>
 );
 

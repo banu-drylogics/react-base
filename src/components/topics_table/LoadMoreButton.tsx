@@ -2,7 +2,7 @@ import React from 'react';
 import './styles.css';
 
 interface LoadMoreButtonProps {
-  handleLoadMore: () => void;
+  handleLoadMore?: () => void;
 }
 
 const LoadMoreButton = ({ handleLoadMore }: LoadMoreButtonProps) => {
