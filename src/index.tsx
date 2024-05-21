@@ -21,6 +21,7 @@ import { transformedData } from './components/dount/chartData';
 import DropDown from './components/dropdown/DropDown';
 import VirtualizedTable from './components/virtualized_table/VirtualizedTable';
 import TableWithLoader from './components/topics_table/TopicsTable';
+import TextBoxComponent from './components/children-character/TextBoxComponent';
 
 const router = createBrowserRouter([
   {
@@ -42,7 +43,7 @@ const router = createBrowserRouter([
       },
       {
         path: "textbox-view",
-        element: <DropDown />,
+        element: <TextBoxComponent />,
       },
       {
         path: "virtualized-table",
