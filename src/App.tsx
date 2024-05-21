@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
-import './App.css';
-import TextBoxComponent from './components/children-character/TextBoxComponent';
 
+import React from 'react';
+import './App.css';
+import LoaderWithTableView from './components/topics_table/TopicsTable';
 
 function App() {
 
   return (
-    <div className="container">
-      <TextBoxComponent />
+    <div>
+      <LoaderWithTableView />
     </div>
-  );
+  )
 }
 
 export default App;

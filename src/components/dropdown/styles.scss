@@ -1,0 +1,105 @@
+.dropdown-container {
+  height: 100%;
+  width: 60%;
+
+  &__button {
+    cursor: pointer;
+    justify-content: center;
+    height: 36px;
+    min-width: 140px;
+    max-width: 176px;
+    background-color: #FFF;
+    border-radius: 2px;
+    border: 1px solid #A5A5A5;
+    display: flex;
+    font-size: 16px;
+    align-items: center;
+    position: relative;
+    left: 908px;
+    width: 256px;
+    top: 7px;
+
+  }
+
+  .fa-angle-down,
+  .fa-chevron-up {
+    font-size: 16px;
+    height: 20px;
+    letter-spacing: 0;
+    position: absolute;
+    right: 20px;
+  }
+}
+
+.dropdown-menu-container {
+  position: absolute;
+  left: 720px;
+  top: 43px;
+  border: 1px solid;
+  width: 362px;
+
+  &__list {
+    list-style-type: none;
+    max-height: 150px;
+    overflow-y: auto;
+
+    &__row {
+      font-family: "Arimo", sans-serif;
+      padding: 10px 27px 0px 11px;
+
+      &__label {
+        padding: 7px 7px 9px 7px;
+      }
+
+      &:hover {
+        background-color: #f0f0f0;
+        cursor: pointer;
+      }
+
+      .fa-square,
+      .fa-check-square {
+        margin-right: 4px;
+        cursor: pointer;
+      }
+
+    }
+  }
+}
+
+.input-container {
+  align-items: center;
+  background-color: white;
+  border-radius: 2px;
+  border: 1px solid #C7C7C7;
+  display: flex;
+  height: 36px;
+  margin: 2px 12px 12px 12px;
+  max-width: 300px;
+  min-width: 183px;
+  padding: 0px 0px 0px 12px;
+
+  .fa-search {
+    color: #1e1e1e;
+    font-size: 16px;
+    height: 20px;
+    line-height: 20px;
+    margin-right: 8px;
+    width: 16px;
+  }
+
+  &__textarea {
+    border: transparent;
+    font-family: "Arimo", sans-serif;
+    flex-grow: 1;
+    font-size: 12px;
+    height: 100%;
+    letter-spacing: 0;
+    line-height: 20px;
+    max-height: 79%;
+    max-width: 200%;
+    min-height: 43%;
+    outline: 0;
+    padding: 8px 0 0 0;
+    width: 1px;
+  }
+}
