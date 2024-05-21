@@ -1,13 +1,15 @@
+
+import React from 'react';
 import './App.css';
-import Counter from './components/counter';
+import LoaderWithTableView from './components/topics_table/TopicsTable';
 
 function App() {
-  return (
-    <div className="container">
-      <Counter/>
 
+  return (
+    <div>
+      <LoaderWithTableView />
     </div>
-  );
+  )
 }
 
 export default App;

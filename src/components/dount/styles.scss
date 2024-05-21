@@ -1,0 +1,94 @@
+.legend-container {
+  position: relative;
+  width: auto;
+  display: flex;
+  align-items: center;
+  background-color: #f4f4f4;
+  border-radius: 2px;
+  font-family: "Arimo", sans-serif;
+  padding: 8px 12px;
+  padding-right: 0px;
+  font-size: 12px;
+  margin: 2px;
+
+  &__header {
+    align-self: flex-start;
+    line-height: 20px;
+    font-weight: 700;
+    margin-right: 8px;
+    color: #1e1e1e;
+  }
+
+  &__content {
+    display: flex;
+    flex-wrap: wrap;
+
+    &__name {
+      margin-right: 12px;
+      line-height: 20px;
+      display: flex;
+      align-items: center;
+
+      &__box {
+        width: 10px;
+        height: 10px;
+        border: 1px solid rgba(0, 0, 0, .2);
+        width: 12px;
+        min-width: 12px;
+        height: 12px;
+        display: inline-block;
+        margin-right: 3px;
+        border-radius: 2px;
+        font-size: 12px;
+      }
+    }
+  }
+}
+
+.dount {
+  width: max-content;
+  padding: 22px 2px 0px 7px;
+  border: 1px solid black;
+  margin: 0 auto;
+}
+
+.chart-tooltip-container {
+  border: 1px solid grey;
+  background-color: white;
+  padding: 11px 10px 10px 11px;
+  font-weight: bold;
+  text-align: left;
+
+  &__row {
+    display: flex;
+    justify-content: space-between;
+    padding: 3px 14px;
+
+    &--highlighted {
+      background-color: rgb(242, 233, 233);
+    }
+  }
+
+  &__content {
+    display: flex;
+    align-items: center;
+
+    &__icon {
+      width: 10px;
+      height: 10px;
+      border: 1px solid rgba(0, 0, 0, .2);
+      width: 12px;
+      min-width: 12px;
+      height: 12px;
+      display: inline-block;
+      margin-right: 3px;
+      border-radius: 2px;
+      font-size: 12px;
+    }
+
+    &__label {
+      margin-left: 4px;
+      font-weight: normal;
+    }
+  }
+}
