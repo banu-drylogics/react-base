@@ -1,16 +1,15 @@
-import React, { useState } from 'react';
-import './App.css';
-import DonutChart from './components/dount/Dount';
-import { transformedData } from './components/dount/chartData';
 
+import React from 'react';
+import './App.css';
+import LoaderWithTableView from './components/topics_table/TopicsTable';
 
 function App() {
 
   return (
-    <div className="container">
-      < DonutChart data={transformedData} />
+    <div>
+      <LoaderWithTableView />
     </div>
-  );
+  )
 }
 
 export default App;
