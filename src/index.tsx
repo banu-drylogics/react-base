@@ -14,6 +14,8 @@ import path from 'path';
 import RecursiveMenu from './routes/RecursiveMenu';
 import { MenuData } from './routes/MenuData';
 import BillingTable from './components/billing_table/BillingTable';
+import DonutChart from './components/dount/Dount';
+import { transformedData } from './components/dount/chartData';
 
 const router = createBrowserRouter([
   {
@@ -24,6 +26,10 @@ const router = createBrowserRouter([
   {
     path: "billing-table",
     element: <BillingTable />,
+  },
+  {
+    path: "donut-view",
+    element: < DonutChart data={transformedData} />,
   }
 ]);
 
