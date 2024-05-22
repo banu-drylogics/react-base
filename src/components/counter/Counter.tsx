@@ -24,16 +24,16 @@ interface RangeProps {
 };
 
 const Button = ({ onClick, name, className }: ButtonProps) => {
-  return <div className="style-button-container">
-    <button className={`style-button-container__${className}`} onClick={onClick}>{name}</button>
+  return <div className="style-button">
+    <button className={`style-button__${className}`} onClick={onClick}>{name}</button>
   </div>;
 };
 
 const RangeView = ({ onChange, value }: RangeProps) => {
   return (
-    <div className="range-input-container">
-      <label htmlFor="range" className="range-input-container__range">Range:</label>
-      <input type="number" id="range" name="range" className="range-input-container__input"
+    <div className="range-view">
+      <label htmlFor="range" className="range-view__range">Range:</label>
+      <input type="number" id="range" name="range" className="range-view__input"
         placeholder="Enter the Range" onChange={onChange} value={value} min={0} ></input>
     </div>
   );
@@ -41,8 +41,8 @@ const RangeView = ({ onChange, value }: RangeProps) => {
 
 const InputField = ({ value }: InputProps) => {
   return (
-    <div className="input-container">
-      <span className="input-container__label">{value}</span>
+    <div className="input-field">
+      <span className="input-field__label">{value}</span>
     </div>
   );
 }
@@ -51,7 +51,7 @@ const Counter = ({ count, setCount, range, setRange }: Props) => {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => setRange(parseInt(event.target.value))
 
   return (
-    <div className="counter-container">
+    <div className="counter">
       <Button className='add-button' onClick={() => setCount(count + Number(range))} name="ADD" />
       {
         <InputField value={count} />

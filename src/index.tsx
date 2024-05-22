@@ -8,7 +8,7 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
-import RecursiveMenu from './routes/RecursiveMenu';
+import RecursiveMenu, { loader as Menuloader } from './routes/RecursiveMenu';
 import { MenuData } from './routes/MenuData';
 import BillingTable from './components/billing_table/BillingTable';
 import DonutChart from './components/dount/Dount';
@@ -25,6 +25,7 @@ const router = createBrowserRouter([
     path: "/",
     element: <RecursiveMenu data={MenuData} />,
     errorElement: <ErrorPage />,
+    loader: Menuloader,
     children: [
       {
         path: "billing-table",
@@ -39,7 +40,7 @@ const router = createBrowserRouter([
         element: <DropDown />,
       },
       {
-        path: "textbox-view",
+        path: "text-box-view",
         element: <TextBoxComponent />,
       },
       {
@@ -57,7 +58,6 @@ const router = createBrowserRouter([
     ]
   },
 ]);
-
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

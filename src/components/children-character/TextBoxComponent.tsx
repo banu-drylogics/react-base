@@ -1,6 +1,6 @@
+import _ from 'lodash';
 import React, { useEffect, useState } from 'react';
 import './styles.scss';
-import _ from 'lodash';
 
 export interface TextBoxComponentProps {
   onTextCountChange?: (e: React.ChangeEvent<HTMLInputElement>, childCount: number, index: number) => void;
@@ -72,7 +72,7 @@ const TextBoxComponent = ({ onTextCountChange, index = 0 }: TextBoxComponentProp
         <button className='text-container__button__add' onClick={addChild} disabled={inputText === ''}>Add Child</button>
       </div>
       {childComponents.map((child, index) => (
-        <div key={index} className={'text-container'.concat(index % 2 === 0 ? ' even' : ' odd')} >
+        <div key={index} className='text-container' >
           {
             React.cloneElement(child, {
               onTextCountChange: (e: React.ChangeEvent<HTMLInputElement>,

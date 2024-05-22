@@ -1,6 +1,7 @@
 export interface DataProps {
     Table: string[];
     Donut: string[];
-    Counter:[]
+    Counter: []
     DropDown: string[];
+    [key: string]: string[];
 };

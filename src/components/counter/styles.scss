@@ -1,4 +1,4 @@
-.style-button-container {
+.style-button {
   padding: 15px 32px;
 
   &__add-button {
@@ -36,14 +36,14 @@
   }
 }
 
-.counter-container {
+.counter {
   display: flex;
   position: absolute;
   left: 260px;
   top: 390px;
 }
 
-.range-input-container {
+.range-view {
   width: 100%;
   box-sizing: border-box;
   position: relative;
@@ -60,7 +60,7 @@
   }
 }
 
-.input-container {
+.input-field {
   position: relative;
   left: -4px;
   bottom: 249px;

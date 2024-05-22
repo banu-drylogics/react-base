@@ -4,20 +4,26 @@ import { Link, Outlet } from "react-router-dom";
 import _ from "lodash";
 import "./styles.scss";
 import '@fortawesome/fontawesome-free/css/all.css';
+import { getMenuData, getUpdateIcon } from './MenuData';
+import { DataProps } from './types';
 
 interface MenuItemProps {
   label: string;
-  options: string[];
+  options: string[] | [];
 };
 
+
+export async function loader() {
+  const data = await getMenuData();
+  return { data };
+}
+
 const MenuItem = ({ label, options }: MenuItemProps) => {
-  const [isHovered, setIsHovered] = useState(false);
+  const [isHovered, setIsHovered] = useState<boolean>(false);
 
   const getUrl = (option: string) => {
-    return option.toLowerCase().replace(' ', "-");
-
+    return _.kebabCase(option);
   }
-
 
   return (
     <>
@@ -29,15 +35,15 @@ const MenuItem = ({ label, options }: MenuItemProps) => {
             {options.length === 0 ? <Link to={getUrl(label)}>{label}</Link> : label}
           </div>
           {options.length > 0 && (
-            <div className={isHovered ? 'fas fa-chevron-up icon' : 'fas fa-angle-down icon'}></div>
+            <div className={getUpdateIcon(isHovered)}></div>
           )}
         </div>
         {
-          isHovered && options && options.length > 0 && (
-            <div className='navigation-menu-dropdown-container' >
-              <ol className='navigation-menu-dropdown-container__options'>
+          isHovered && options.length > 0 && (
+            <div className='navigation-menu-dropdown' >
+              <ol className='navigation-menu-dropdown__options'>
                 {_.map(options, (option, index) => (
-                  <li className='navigation-menu-dropdown-container__option' key={index}>
+                  <li className='navigation-menu-dropdown__option' key={index}>
                     <Link to={getUrl(option)}>{option}</Link>
                   </li>
                 ))}
@@ -50,14 +56,19 @@ const MenuItem = ({ label, options }: MenuItemProps) => {
   );
 };
 
-const RecursiveMenu = ({ data }: any) => {
+interface RecursiveMenuProps {
+  data: DataProps[];
+};
+
+const RecursiveMenu = ({ data }: RecursiveMenuProps) => {
+
   return (
     <>
       <nav className='navigation-container'>
         {_.map(data, (item, index) => (
           <div key={index} className='navigation-container__menus'>
-            {Object.keys(item).map((key, i) => (
-              <MenuItem key={i} label={key} options={item[key]} />
+            {_.map(item, (options, key) => (
+              <MenuItem key={key} label={key} options={options} />
             ))}
           </div>
         ))}

@@ -1,16 +1,27 @@
 import { Form } from "react-router-dom";
 
 
+const contact = {
+  first: "Your",
+  last: "Name",
+  avatar: "https://placekitten.com/g/200/200",
+  twitter: "your_handle",
+  notes: "Some notes",
+  favorite: true,
+};
+
+export const getContacts = async () => {
+  return new Promise((resolve) =>
+    setTimeout(() => {
+      resolve(contact);
+    }, 2000
+    )
+  );
+}
 
 const Contact = () => {
-  const contact = {
-    first: "Your",
-    last: "Name",
-    avatar: "https://placekitten.com/g/200/200",
-    twitter: "your_handle",
-    notes: "Some notes",
-    favorite: true,
-  };
+
+
 
   return (
     <div id="contact">

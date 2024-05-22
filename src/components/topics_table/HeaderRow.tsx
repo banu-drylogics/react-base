@@ -1,4 +1,5 @@
 import './styles.scss';
+import * as _ from 'lodash';
 
 interface HeaderProps {
   headers: string[];
@@ -9,7 +10,7 @@ export const HeaderRow = ({ headers }: HeaderProps) => {
     <thead>
       <tr>
         {
-          headers.map((col: string, index: number) =>
+          _.map(headers, (col: string, index: number) =>
             <th key={index} className="text-center">{col}
             </th>
           )
