@@ -1,6 +1,6 @@
-import _ from 'lodash';
 import React, { useEffect, useState } from 'react';
 import './styles.scss';
+import _ from 'lodash';
 
 export interface TextBoxComponentProps {
   onTextCountChange?: (e: React.ChangeEvent<HTMLInputElement>, childCount: number, index: number) => void;

@@ -2,7 +2,7 @@ table,
 tr,
 td,
 th {
-  width: 200%;
+  width: 70%;
   border-collapse: collapse;
   border: 2px solid black;
 }
@@ -48,17 +48,11 @@ input {
 }
 
 .table {
-  display: block;
-  position: absolute;
-  top: 77px;
-  left: 24px;
+  padding: 20px;
   font-size: large;
 }
 
 .loader {
-  display: block;
-  position: absolute;
-  top: 190px;
-  left: 600px;
+  padding: 300px;
   font-size: large;
 }
