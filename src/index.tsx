@@ -1,17 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux'
 import { store } from './store';
-// import Root from "./routes/root";
 import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
-// import Contact from './routes/contacts';
-import path from 'path';
 import RecursiveMenu from './routes/RecursiveMenu';
 import { MenuData } from './routes/MenuData';
 import BillingTable from './components/billing_table/BillingTable';
@@ -22,7 +18,6 @@ import VirtualizedTable from './components/virtualized_table/VirtualizedTable';
 import TableWithLoader from './components/topics_table/TopicsTable';
 import TextBoxComponent from './components/children-character/TextBoxComponent';
 import ErrorPage from './error-page';
-import Counter from './components/counter/Counter';
 import CounterWrapper from './components/counter';
 
 const router = createBrowserRouter([

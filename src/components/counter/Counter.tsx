@@ -26,7 +26,7 @@ interface RangeProps {
 const Button = ({ onClick, name, className }: ButtonProps) => {
   return <div className="style-button-container">
     <button className={`style-button-container__${className}`} onClick={onClick}>{name}</button>
-  </div >;
+  </div>;
 };
 
 const RangeView = ({ onChange, value }: RangeProps) => {
