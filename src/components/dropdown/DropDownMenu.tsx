@@ -24,18 +24,18 @@ const DropDownMenu = ({ data }: DropDownMenuProps) => {
   }
 
   return (
-    <div className="dropdown-menu-container">
+    <div className="dropdown-menu">
       <SearchInput data={data} setFilteredOptions={setFilteredOptions} />
-      <div className="dropdown-menu-container__list">
+      <div className="dropdown-menu__list">
         {_.map(filteredOptions, (item, idx) => (
           <div
-            className="dropdown-menu-container__list__row"
+            className="dropdown-menu__list__row"
             key={idx}>
             <i
               className={getCheckboxStatus(item)}
               onClick={() => toggleOption(item)}
             ></i>
-            <span className="dropdown-menu-container__list__row__label">{item}</span>
+            <span className="dropdown-menu__list__row__label">{item}</span>
           </div>
         ))}
       </div>

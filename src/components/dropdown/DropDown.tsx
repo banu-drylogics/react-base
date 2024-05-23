@@ -3,6 +3,7 @@ import './styles.scss';
 import '@fortawesome/fontawesome-free/css/all.css';
 import { brandData } from './brandsData';
 import DropDownMenu from './DropDownMenu';
+import { getUpdateIcon } from '../../routes/MenuData';
 
 const DropDown = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -10,8 +11,8 @@ const DropDown = () => {
 
   const Button = () => {
     return (
-      <button className="dropdown-container__button" onClick={() => setIsOpen(!isOpen)}>Dropdown
-        <i className={isOpen ? 'fas fa-chevron-up' : 'fas fa-angle-down icon'}></i>
+      <button className="dropdown__button" onClick={() => setIsOpen(!isOpen)}>Dropdown
+        <i className={getUpdateIcon(isOpen)}></i>
       </button>
     )
   };
@@ -31,7 +32,7 @@ const DropDown = () => {
   }, []);
 
   return (
-    <div className="dropdown-container" ref={dropdownRef}>
+    <div className="dropdown" ref={dropdownRef}>
       <Button />
       {isOpen && <DropDownMenu data={brandData} />}
     </div>

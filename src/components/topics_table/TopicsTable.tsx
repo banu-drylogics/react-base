@@ -32,9 +32,9 @@ const TopicsTable = ({ data, page, setPage }: TopicsTableProps) => {
   }, [data])
 
   return (
-    <div>
+    <div className="topics-table">
       <h1>Git Topics</h1>
-      <div className="container">
+      <div className="topics-table__content">
         <table>
           <HeaderRow headers={cloumnArray} />
           <TableRow records={topics} />

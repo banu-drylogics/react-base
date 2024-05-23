@@ -1,4 +1,4 @@
-.legend-container {
+.legend {
   position: relative;
   width: auto;
   display: flex;
@@ -49,10 +49,10 @@
   width: max-content;
   padding: 22px 2px 0px 7px;
   border: 1px solid black;
-  margin: 0 auto;
+  margin: 50px auto;
 }
 
-.chart-tooltip-container {
+.chart-tooltip {
   border: 1px solid grey;
   background-color: white;
   padding: 11px 10px 10px 11px;

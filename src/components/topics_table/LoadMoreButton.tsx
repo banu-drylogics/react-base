@@ -1,8 +1,8 @@
 import React from 'react';
-import './styles.css';
+import './styles.scss';
 
 interface LoadMoreButtonProps {
-  handleLoadMore: () => void;
+  handleLoadMore?: () => void;
 }
 
 const LoadMoreButton = ({ handleLoadMore }: LoadMoreButtonProps) => {

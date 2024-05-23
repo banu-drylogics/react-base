@@ -20,4 +20,4 @@ export const TableRow = ({ records }: TableRowProps) => {
       )}
     </tbody>
   )
-}
+};

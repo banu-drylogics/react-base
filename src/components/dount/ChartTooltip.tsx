@@ -2,6 +2,7 @@ import './styles.scss';
 import React, { useEffect, useRef } from "react";
 import { createPopper, Instance } from '@popperjs/core';
 import { transformedDataType } from './types';
+import * as _ from 'lodash';
 
 interface ChartTooltipProps {
   tooltipContent: {
@@ -46,22 +47,22 @@ const ChartTooltip = ({ tooltipContent }: ChartTooltipProps) => {
   }, [tooltipContent]);
 
   const highlightedRow = (data: transformedDataType, hoveredData: string) => {
-    return 'chart-tooltip-container__row'.concat(data.channelName === hoveredData ?
-      ' chart-tooltip-container__row--highlighted' : '')
+    return 'chart-tooltip__row'.concat(data.channelName === hoveredData ?
+      ' chart-tooltip__row--highlighted' : '')
   };
 
-  return <div className='chart-tooltip' ref={tooltipRef}>
-    <div className='chart-tooltip-container'>
+  return <div className='chart-tooltip-container' ref={tooltipRef}>
+    <div className='chart-tooltip'>
       {
-        tooltipContent.content.map((data: transformedDataType, idx: number) => (
+        _.map(tooltipContent.content, (data: transformedDataType, idx: number) => (
           <div className={highlightedRow(data, tooltipContent.hoveredData.channelName)}
             key={idx}>
-            <div className='chart-tooltip-container__content'>
-              <i className='chart-tooltip-container__content__icon' style={{ backgroundColor: `${data.color}` }}></i>
-              <div className='chart-tooltip-container__content__label'>{data.channelName}:</div>
+            <div className='chart-tooltip__content'>
+              <i className='chart-tooltip__content__icon' style={{ backgroundColor: `${data.color}` }}></i>
+              <div className='chart-tooltip__content__label'>{data.channelName}:</div>
             </div>
             <div>
-              <span className='chart-tooltip-container__value'>{data.value}</span>
+              <span className='chart-tooltip__value'>{data.value}</span>
             </div>
           </div>
         ))}

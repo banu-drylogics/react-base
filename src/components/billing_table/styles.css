@@ -2,7 +2,7 @@ table,
 tr,
 td,
 th {
-  width: 200%;
+  width: 70%;
   border-collapse: collapse;
   border: 2px solid black;
 }
@@ -47,18 +47,12 @@ input {
   justify-content: space-evenly;
 }
 
-.table-container {
-  display: block;
-  position: absolute;
-  top: 0px;
-  left: 0px;
+.table {
+  padding: 20px;
   font-size: large;
 }
 
 .loader {
-  display: flex;
-  justify-content: center;
-  position: relative;
-  top: 190px;
+  padding: 300px;
   font-size: large;
 }
