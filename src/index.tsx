@@ -19,6 +19,8 @@ import TableWithLoader from './components/topics_table/TopicsTable';
 import TextBoxComponent from './components/children-character/TextBoxComponent';
 import ErrorPage from './error-page';
 import CounterWrapper from './components/counter';
+import DatePicker from './components/date-picker/Calendar';
+import Calendar from './components/date-picker/Calendar';
 
 const router = createBrowserRouter([
   {
@@ -54,6 +56,10 @@ const router = createBrowserRouter([
       {
         path: "counter",
         element: <CounterWrapper />,
+      },
+      {
+        path: "date-picker",
+        element: <Calendar />,
       }
     ]
   },
