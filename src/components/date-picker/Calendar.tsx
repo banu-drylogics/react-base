@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './styles.scss';
+import './Calendar.scss';
 import _ from 'lodash';
 import { MONTHS } from './calendar';
 import DateSelector from './DateSeletor';

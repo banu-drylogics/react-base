@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './styles.scss';
+import './Calendar.scss';
 import _ from 'lodash';
 import { WEEKS, endDate, startDate } from './calendar';
 
