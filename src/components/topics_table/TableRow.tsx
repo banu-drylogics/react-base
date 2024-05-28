@@ -10,9 +10,9 @@ export const TableRow = ({ records }: TableRowProps) => {
   return (
     <tbody>
       {_.map(records, (rec: ColState, index: number) =>
-        <tr key={index} >
+        <tr key={index} className='topics-table__row'>
           {columnConfig.map((config) =>
-            <td key={config.id}>
+            <td key={config.id} className="topics-table__header-cell">
               {rec[config.id]}
             </td>
           )}

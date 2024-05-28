@@ -15,10 +15,10 @@ const HeaderRow = ({ getCol }: HeaderRowProps) => {
 
   return (
     <thead>
-      <tr>
+      <tr className="table__row">
         {
           _.map(columnsArray, (col: string, index: number) =>
-            <td key={index} className="text-center" onClick={() => getCol(col)}>{col}
+            <td key={index} className="table__cell" onClick={() => getCol(col)}>{col}
             </td>
           )
         }
@@ -55,11 +55,11 @@ const TableRows = ({ setCollectedRecords, sortedRecords }: TableRowsProps) => {
   return (
     <tbody>
       {_.map(sortedRecords, (rec: ColState, index: number) =>
-        <tr key={index} >
+        <tr key={index} className="table__row" >
           <Row index={index} record={rec} />
         </tr>
       )}
-      <tr>
+      <tr className="table__row">
         <InputRow handleChange={(e, id) => handleChange(e, id)} record={record} addRow={(e, itemInputRef) => addRow(e, itemInputRef)} setRecord={setRecord} />
       </tr>
     </tbody>
@@ -108,7 +108,7 @@ const BillingTable = () => {
 
   return (
     <div className="table">
-      <table id="myTable">
+      <table className="table__table">
         <HeaderRow getCol={(col) => getCol(col)} />
         <TableRows sortedRecords={sortRecords(defaultColumn, order)} setCollectedRecords={setCollectedRecords} />
       </table>

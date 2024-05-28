@@ -13,7 +13,7 @@ interface RowProps {
 
 const InputRow = ({ handleChange, addRow, record, setRecord }: RowProps) => {
 
-const itemInputRef = React.useRef<HTMLInputElement>(null);
+  const itemInputRef = React.useRef<HTMLInputElement>(null);
 
   const getType = (config: ColType) => {
     if (config.id === "items") {
@@ -41,7 +41,7 @@ const itemInputRef = React.useRef<HTMLInputElement>(null);
     <>
       {columnConfig.map((config) =>
         config.editable ? (
-          <td key={config.id}>
+          <td key={config.id} className="table__cell">
             <input type={getType(config)}
               ref={config.id === 'items' ? itemInputRef : undefined}
               value={record[config.id]}

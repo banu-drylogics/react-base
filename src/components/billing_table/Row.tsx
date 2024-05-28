@@ -21,7 +21,7 @@ const Row = ({ index, record }: RowProps) => {
   return (
     <>
       {columnConfig.map((config) =>
-        <td key={config.id}>
+        <td key={config.id} className="table__cell">
           {getRecord(config, index)}
         </td>
       )}

@@ -35,7 +35,7 @@ const TopicsTable = ({ data, page, setPage }: TopicsTableProps) => {
     <div className="topics-table">
       <h1>Git Topics</h1>
       <div className="topics-table__content">
-        <table>
+        <table className="topics-table__table">
           <HeaderRow headers={cloumnArray} />
           <TableRow records={topics} />
         </table>
