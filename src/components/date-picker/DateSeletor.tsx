@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './Calendar.scss';
 import _ from 'lodash';
 import utils from './dateUtils';
@@ -16,7 +16,7 @@ const DateSelector = ({ calendarData, handleDateClick, selectedEndDate, selected
       <table>
         <thead>
           <tr>
-            {utils.WEEKS.map((week: string, idx: number) => (
+            {utils.weeks.map((week: string, idx: number) => (
               <th key={idx}>{week}</th>
             ))}
           </tr>

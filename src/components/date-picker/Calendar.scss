@@ -20,10 +20,11 @@
 
 .calendar-toolbar {
   &__month {
+    width: 146px;
     position: relative;
-    bottom: 31px;
-    left: 68px;
-    cursor: pointer;
+    bottom: 29px;
+    text-align: center;
+    left: 48px;
   }
 
   &__prev-button {

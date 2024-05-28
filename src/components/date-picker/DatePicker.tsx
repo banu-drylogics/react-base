@@ -23,13 +23,13 @@ const DatePicker = ({
 
   const formatPickedDate = () => {
     if (selectedStartDate && selectedEndDate) {
-      return `${selectedStartDate} ${utils.MONTHS[selectedStartMonth]} ${selectedStartYear} - 
-      ${selectedEndDate} ${utils.MONTHS[selectedEndMonth]} ${selectedEndYear}`;
+      return `${selectedStartDate} ${utils.months[selectedStartMonth]} ${selectedStartYear} - 
+      ${selectedEndDate} ${utils.months[selectedEndMonth]} ${selectedEndYear}`;
     }
     if (selectedStartDate) {
-      return `${selectedStartDate} ${utils.MONTHS[selectedStartMonth]} ${selectedStartYear}`;
+      return `${selectedStartDate} ${utils.months[selectedStartMonth]} ${selectedStartYear}`;
     }
-    return `${utils.startDate} ${utils.MONTHS[utils.startMonth]} ${utils.startYear} - ${utils.endDate} ${utils.MONTHS[utils.endMonth]} ${utils.endYear}`;
+    return `${utils.startDate} ${utils.months[utils.startMonth]} ${utils.startYear} - ${utils.endDate} ${utils.months[utils.endMonth]} ${utils.endYear}`;
   };
   return (
     <div className='calendar__date-picker'>

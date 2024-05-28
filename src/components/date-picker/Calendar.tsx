@@ -21,7 +21,8 @@ const MonthSelector = ({ handleMonth, disabled, label, className }: MonthSelecto
 };
 
 const Calendar = () => {
-  const [thisMonth, setThisMonth] = useState<number>(utils.CMonths);
+  const [thisMonth, setThisMonth] = useState<number>(utils.date.getMonth());
+  const [thisYear, setThisYear] = useState<number>(utils.date.getFullYear());
   const [selectedStartDate, setSelectedStartDate] = useState<number>(utils.startDate);
   const [selectedEndDate, setSelectedEndDate] = useState<number>(utils.endDate);
   const [selectedStartMonth, setSelectedStartMonth] = useState<number>(utils.startMonth);
@@ -30,65 +31,56 @@ const Calendar = () => {
   const [selectedEndYear, setSelectedEndYear] = useState<number>(utils.endYear);
   const [calendarVisible, setCalendarVisible] = useState<boolean>(false);
 
+  const isPrevClicked = thisYear === utils.years[0] && thisMonth === 0;
+  const isNextClicked = thisMonth === utils.months.length - 1 && thisYear === _.findLast(utils.years);
+
   const handlePrevMonth = () => {
-    if (thisMonth === 0) return;
-    setThisMonth(thisMonth - 1);
+    if (isPrevClicked) return;
+    if (thisMonth === 0) {
+      setThisMonth(utils.months.length - 1);
+      setThisYear(thisYear - 1);
+    } else {
+      setThisMonth(thisMonth - 1);
+    }
   };
 
   const handleNextMonth = () => {
-    if (thisMonth === utils.MONTHS.length - 1) return;
-    setThisMonth(thisMonth + 1);
+    if (isNextClicked) return;
+    if (thisMonth === utils.months.length - 1) {
+      setThisMonth(0);
+      setThisYear(thisYear + 1);
+    } else {
+      setThisMonth(thisMonth + 1);
+    }
   };
 
   const handleDateClick = (date: number) => {
     if (!selectedStartDate || selectedEndDate) {
       setSelectedStartDate(date);
       setSelectedStartMonth(thisMonth);
-      setSelectedStartYear(utils.YEAR);
+      setSelectedStartYear(thisYear);
       setSelectedEndDate(0);
       setSelectedEndMonth(0);
       setSelectedEndYear(0);
     } else if (selectedStartDate && !selectedEndDate) {
-      const clickedDate = new Date(utils.YEAR, thisMonth, date);
+      const clickedDate = new Date(thisYear, thisMonth, date);
       const startDate = new Date(selectedStartYear, selectedStartMonth, selectedStartDate);
       if (clickedDate >= startDate) {
         setSelectedEndDate(date);
         setSelectedEndMonth(thisMonth);
-        setSelectedEndYear(utils.YEAR);
+        setSelectedEndYear(thisYear);
       } else {
         setSelectedEndDate(selectedStartDate);
         setSelectedEndMonth(selectedStartMonth);
         setSelectedEndYear(selectedStartYear);
         setSelectedStartDate(date);
         setSelectedStartMonth(thisMonth);
-        setSelectedStartYear(utils.YEAR);
+        setSelectedStartYear(thisYear);
       }
     }
   };
 
-  const getCalendarData = (month: number, year: number) => {
-    const firstDay = new Date(year, month, 1).getDay();
-    const daysInMonth = 32 - new Date(year, month, 32).getDate();
-    let calendarData = [];
-    let date = 1;
-    for (let i = 0; i < 6; i++) {
-      let week = [];
-      for (let j = 0; j < 7; j++) {
-        if (i === 0 && j < firstDay) {
-          week.push(null);
-        } else if (date > daysInMonth) {
-          week.push(null);
-        } else {
-          week.push(date);
-          date++;
-        }
-      }
-      calendarData.push(week);
-    }
-    return calendarData;
-  };
-
-  const calendarData = getCalendarData(thisMonth, utils.YEAR);
+  const calendarData = utils.getCalendarData(thisMonth, thisYear);
 
   return (
     <div className='calendar'>
@@ -105,11 +97,11 @@ const Calendar = () => {
       {calendarVisible &&
         <div className='calendar-popup'>
           <div className="calendar-toolbar">
-            <MonthSelector handleMonth={handlePrevMonth} disabled={thisMonth === 0} label={'<<'}
-              className={"calendar-toolbar__prev-button".concat(thisMonth === 0 ? ' calendar-toolbar__prev-button--disabled' : '')} />
-            <h3 className="calendar-toolbar__month">{`${utils.MONTHS[thisMonth]}, ${utils.YEAR}`}</h3>
-            <MonthSelector handleMonth={handleNextMonth} disabled={thisMonth === utils.MONTHS.length - 1} label={'>>'}
-              className={"calendar-toolbar__next-button".concat(thisMonth === utils.MONTHS.length - 1 ? ' calendar-toolbar__next-button--disabled' : '')} />
+            <MonthSelector handleMonth={handlePrevMonth} disabled={isPrevClicked} label={'<<'}
+              className={"calendar-toolbar__prev-button".concat(isPrevClicked ? ' calendar-toolbar__prev-button--disabled' : '')} />
+            <h3 className="calendar-toolbar__month">{`${utils.months[thisMonth]}, ${thisYear}`}</h3>
+            <MonthSelector handleMonth={handleNextMonth} disabled={isNextClicked} label={'>>'}
+              className={"calendar-toolbar__next-button".concat(isNextClicked ? ' calendar-toolbar__next-button--disabled' : '')} />
           </div>
           <DateSelector calendarData={calendarData} selectedStartDate={selectedStartDate}
             selectedEndDate={selectedEndDate}
