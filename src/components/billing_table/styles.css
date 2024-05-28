@@ -1,20 +1,18 @@
-table,
-tr,
-td,
-th {
+.table__table,
+.table__row,
+.table__cell {
   width: 70%;
   border-collapse: collapse;
   border: 2px solid black;
 }
 
-td,
-th {
+.table__cell {
   width: 100px;
   text-align: left;
   padding: 2px;
 }
 
-tr:nth-child(even) {
+tr.table__row:nth-child(even) {
   background-color: #f2f2f2;
 }
 

@@ -3,5 +3,6 @@ export interface DataProps {
     Donut: string[];
     Counter: []
     DropDown: string[];
+    DatePicker: [];
     [key: string]: string[];
 };

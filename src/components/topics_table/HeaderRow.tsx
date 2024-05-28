@@ -1,4 +1,4 @@
-import './styles.scss';
+import './TopicsTable.scss';
 import * as _ from 'lodash';
 
 interface HeaderProps {
@@ -8,10 +8,10 @@ interface HeaderProps {
 export const HeaderRow = ({ headers }: HeaderProps) => {
   return (
     <thead>
-      <tr>
+      <tr className='topics-table__row'>
         {
           _.map(headers, (col: string, index: number) =>
-            <th key={index} className="text-center">{col}
+            <th key={index} className="topics-table__header-cell">{col}
             </th>
           )
         }
