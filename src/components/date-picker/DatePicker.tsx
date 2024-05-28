@@ -1,4 +1,4 @@
-import { MONTHS, startDate, endDate, startMonth, endMonth, startYear, endYear } from './calendar';
+import utils from './dateUtils';
 
 interface DatePickerProps {
   calendarVisible: boolean;
@@ -23,13 +23,13 @@ const DatePicker = ({
 
   const formatPickedDate = () => {
     if (selectedStartDate && selectedEndDate) {
-      return `${selectedStartDate} ${MONTHS[selectedStartMonth]} ${selectedStartYear} - 
-      ${selectedEndDate} ${MONTHS[selectedEndMonth]} ${selectedEndYear}`;
+      return `${selectedStartDate} ${utils.MONTHS[selectedStartMonth]} ${selectedStartYear} - 
+      ${selectedEndDate} ${utils.MONTHS[selectedEndMonth]} ${selectedEndYear}`;
     }
     if (selectedStartDate) {
-      return `${selectedStartDate} ${MONTHS[selectedStartMonth]} ${selectedStartYear}`;
+      return `${selectedStartDate} ${utils.MONTHS[selectedStartMonth]} ${selectedStartYear}`;
     }
-    return `${startDate} ${MONTHS[startMonth]} ${startYear} - ${endDate} ${MONTHS[endMonth]} ${endYear}`;
+    return `${utils.startDate} ${utils.MONTHS[utils.startMonth]} ${utils.startYear} - ${utils.endDate} ${utils.MONTHS[utils.endMonth]} ${utils.endYear}`;
   };
   return (
     <div className='calendar__date-picker'>

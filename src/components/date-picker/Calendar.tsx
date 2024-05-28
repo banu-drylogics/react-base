@@ -1,24 +1,24 @@
 import React, { useState } from 'react';
 import './Calendar.scss';
 import _ from 'lodash';
-import { MONTHS } from './calendar';
 import DateSelector from './DateSeletor';
 import DatePicker from './DatePicker';
+import utils from './dateUtils';
 
-interface ButtonProps {
+interface MonthSelectorProps {
   handleMonth: () => void;
   disabled: boolean;
   label: string;
   className: string;
 }
 
-const Button = ({ handleMonth, disabled, label, className }: ButtonProps) => {
+const MonthSelector = ({ handleMonth, disabled, label, className }: MonthSelectorProps) => {
   return (
     <button onClick={handleMonth} disabled={disabled} className={className}>
       {label}
     </button>
   )
-}
+};
 
 const Calendar = () => {
   const [thisMonth, setThisMonth] = useState<number>(2);
@@ -32,12 +32,13 @@ const Calendar = () => {
   const [calendarVisible, setCalendarVisible] = useState<boolean>(false);
 
   const handlePrevMonth = () => {
-    if (thisMonth === 0) return;
+    debugger
+    if (thisMonth === 11) return;
     setThisMonth(thisMonth - 1);
   };
 
   const handleNextMonth = () => {
-    if (thisMonth === 2) return;
+    if (thisMonth === 3) return;
     setThisMonth(thisMonth + 1);
   };
 
@@ -106,11 +107,11 @@ const Calendar = () => {
       {calendarVisible &&
         <div className='calendar-popup'>
           <div className="calendar-toolbar">
-            <Button handleMonth={handlePrevMonth} disabled={thisMonth === 0} label={'<<'}
+            <MonthSelector handleMonth={handlePrevMonth} disabled={thisMonth === 0} label={'<<'}
               className={"calendar-toolbar__prev-button".concat(thisMonth === 0 ? ' calendar-toolbar__prev-button--disabled' : '')} />
-            <h3 className="calendar-toolbar__month">{`${MONTHS[thisMonth]}, ${year}`}</h3>
-            <Button handleMonth={handleNextMonth} disabled={thisMonth === 2} label={'>>'}
-              className={"calendar-toolbar__next-button".concat(thisMonth === 2 ? ' calendar-toolbar__next-button--disabled' : '')} />
+            <h3 className="calendar-toolbar__month">{`${utils.MONTHS[thisMonth]}, ${year}`}</h3>
+            <MonthSelector handleMonth={handleNextMonth} disabled={thisMonth === 3} label={'>>'}
+              className={"calendar-toolbar__next-button".concat(thisMonth === 3 ? ' calendar-toolbar__next-button--disabled' : '')} />
           </div>
           <DateSelector calendarData={calendarData} selectedStartDate={selectedStartDate}
             selectedEndDate={selectedEndDate}

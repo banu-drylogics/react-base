@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './Calendar.scss';
 import _ from 'lodash';
-import { WEEKS, endDate, startDate } from './calendar';
+import utils from './dateUtils';
 
 interface DateSelectorProps {
   handleDateClick: (date: number) => void;
@@ -11,28 +11,12 @@ interface DateSelectorProps {
 }
 
 const DateSelector = ({ calendarData, handleDateClick, selectedEndDate, selectedStartDate }: DateSelectorProps) => {
-  const getClassName = (date: number) => {
-    let className = 'date-selector__day';
-
-    if (selectedEndDate === 0 && selectedStartDate === 0) {
-      if (startDate === date || endDate === date) {
-        className += ' date-selector__day--selected';
-      }
-    } else {
-      if (selectedStartDate === date || selectedEndDate === date) {
-        className += ' date-selector__day--selected';
-      }
-    }
-
-    return className;
-  };
-
   return (
     <div className='date-selector'>
       <table>
         <thead>
           <tr>
-            {WEEKS.map((week: string, idx: number) => (
+            {utils.WEEKS.map((week: string, idx: number) => (
               <th key={idx}>{week}</th>
             ))}
           </tr>
@@ -43,7 +27,7 @@ const DateSelector = ({ calendarData, handleDateClick, selectedEndDate, selected
               {_.map(week, (date: number, dateIdx: number) => (
                 <td
                   key={dateIdx}
-                  className={getClassName(date)}
+                  className="date-selector__day"
                   onClick={() => date && handleDateClick(date)}
                 >
                   {date}
