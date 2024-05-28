@@ -21,24 +21,22 @@ const MonthSelector = ({ handleMonth, disabled, label, className }: MonthSelecto
 };
 
 const Calendar = () => {
-  const [thisMonth, setThisMonth] = useState<number>(2);
-  const [year, setYear] = useState<number>(2024);
-  const [selectedStartDate, setSelectedStartDate] = useState<number>(0);
-  const [selectedEndDate, setSelectedEndDate] = useState<number>(0);
-  const [selectedStartMonth, setSelectedStartMonth] = useState<number>(0);
-  const [selectedEndMonth, setSelectedEndMonth] = useState<number>(0);
-  const [selectedStartYear, setSelectedStartYear] = useState<number>(0);
-  const [selectedEndYear, setSelectedEndYear] = useState<number>(0);
+  const [thisMonth, setThisMonth] = useState<number>(utils.CMonths);
+  const [selectedStartDate, setSelectedStartDate] = useState<number>(utils.startDate);
+  const [selectedEndDate, setSelectedEndDate] = useState<number>(utils.endDate);
+  const [selectedStartMonth, setSelectedStartMonth] = useState<number>(utils.startMonth);
+  const [selectedEndMonth, setSelectedEndMonth] = useState<number>(utils.endMonth);
+  const [selectedStartYear, setSelectedStartYear] = useState<number>(utils.startYear);
+  const [selectedEndYear, setSelectedEndYear] = useState<number>(utils.endYear);
   const [calendarVisible, setCalendarVisible] = useState<boolean>(false);
 
   const handlePrevMonth = () => {
-    debugger
-    if (thisMonth === 11) return;
+    if (thisMonth === 0) return;
     setThisMonth(thisMonth - 1);
   };
 
   const handleNextMonth = () => {
-    if (thisMonth === 3) return;
+    if (thisMonth === utils.MONTHS.length - 1) return;
     setThisMonth(thisMonth + 1);
   };
 
@@ -46,24 +44,24 @@ const Calendar = () => {
     if (!selectedStartDate || selectedEndDate) {
       setSelectedStartDate(date);
       setSelectedStartMonth(thisMonth);
-      setSelectedStartYear(year);
+      setSelectedStartYear(utils.YEAR);
       setSelectedEndDate(0);
       setSelectedEndMonth(0);
       setSelectedEndYear(0);
     } else if (selectedStartDate && !selectedEndDate) {
-      const clickedDate = new Date(year, thisMonth, date);
+      const clickedDate = new Date(utils.YEAR, thisMonth, date);
       const startDate = new Date(selectedStartYear, selectedStartMonth, selectedStartDate);
       if (clickedDate >= startDate) {
         setSelectedEndDate(date);
         setSelectedEndMonth(thisMonth);
-        setSelectedEndYear(year);
+        setSelectedEndYear(utils.YEAR);
       } else {
         setSelectedEndDate(selectedStartDate);
         setSelectedEndMonth(selectedStartMonth);
         setSelectedEndYear(selectedStartYear);
         setSelectedStartDate(date);
         setSelectedStartMonth(thisMonth);
-        setSelectedStartYear(year);
+        setSelectedStartYear(utils.YEAR);
       }
     }
   };
@@ -90,7 +88,7 @@ const Calendar = () => {
     return calendarData;
   };
 
-  const calendarData = getCalendarData(thisMonth, year);
+  const calendarData = getCalendarData(thisMonth, utils.YEAR);
 
   return (
     <div className='calendar'>
@@ -109,9 +107,9 @@ const Calendar = () => {
           <div className="calendar-toolbar">
             <MonthSelector handleMonth={handlePrevMonth} disabled={thisMonth === 0} label={'<<'}
               className={"calendar-toolbar__prev-button".concat(thisMonth === 0 ? ' calendar-toolbar__prev-button--disabled' : '')} />
-            <h3 className="calendar-toolbar__month">{`${utils.MONTHS[thisMonth]}, ${year}`}</h3>
-            <MonthSelector handleMonth={handleNextMonth} disabled={thisMonth === 3} label={'>>'}
-              className={"calendar-toolbar__next-button".concat(thisMonth === 3 ? ' calendar-toolbar__next-button--disabled' : '')} />
+            <h3 className="calendar-toolbar__month">{`${utils.MONTHS[thisMonth]}, ${utils.YEAR}`}</h3>
+            <MonthSelector handleMonth={handleNextMonth} disabled={thisMonth === utils.MONTHS.length - 1} label={'>>'}
+              className={"calendar-toolbar__next-button".concat(thisMonth === utils.MONTHS.length - 1 ? ' calendar-toolbar__next-button--disabled' : '')} />
           </div>
           <DateSelector calendarData={calendarData} selectedStartDate={selectedStartDate}
             selectedEndDate={selectedEndDate}
