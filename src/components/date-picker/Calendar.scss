@@ -1,0 +1,77 @@
+.calendar {
+  margin: 70px 158px 29px 87px;
+  ;
+
+  &__date-picker {
+    padding: 9px 12px 1px 12px;
+
+    &__label {
+      position: relative;
+      left: 89px;
+      bottom: 45px;
+      height: 40px;
+      border-radius: 19px;
+      background-color: white;
+      border: 1px solid #A5A5A5;
+      cursor: pointer;
+    }
+  }
+}
+
+.calendar-toolbar {
+  &__month {
+    width: 146px;
+    position: relative;
+    bottom: 29px;
+    text-align: center;
+    left: 60px;
+  }
+
+  &__prev-button {
+    border: none;
+    position: relative;
+    background-color: white;
+    cursor: pointer;
+    top: 9px;
+    left: 16px;
+
+    &--disabled {
+      cursor: not-allowed;
+      color: rgb(143, 137, 137);
+    }
+  }
+
+  &__next-button {
+    position: relative;
+    bottom: 69px;
+    left: 220px;
+    border: none;
+    background-color: white;
+
+    &--disabled {
+      cursor: not-allowed;
+      color: rgb(155, 144, 144);
+    }
+  }
+}
+
+.calendar-popup {
+  border: 1px solid #A5A5A5;
+  width: 278px;
+  border-radius: 19px;
+  position: relative;
+  bottom: 44px;
+  left: 101px;
+}
+
+.date-selector {
+  position: relative;
+  bottom: 43px;
+
+  tr,
+  td,
+  th {
+    width: 35px;
+    text-align: center;
+  }
+}
