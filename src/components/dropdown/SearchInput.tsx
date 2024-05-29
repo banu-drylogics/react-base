@@ -1,14 +1,15 @@
 import '@fortawesome/fontawesome-free/css/all.css';
 import './styles.scss';
 import _ from 'lodash';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 interface SearchInputProps {
   data: string[];
   setFilteredOptions: React.Dispatch<React.SetStateAction<string[]>>;
+  ref: React.RefObject<HTMLTextAreaElement>
 }
 
-const SearchInput = ({ data, setFilteredOptions }: SearchInputProps) => {
+const SearchInput = ({ data, setFilteredOptions, ref }: SearchInputProps) => {
   const [searchText, setSearchText] = useState('');
 
   const handleSearchKeyEnter = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
@@ -36,11 +37,15 @@ const SearchInput = ({ data, setFilteredOptions }: SearchInputProps) => {
   return (
     <div className="search-input">
       <i className="search-icon fas fa-search icon"></i>
-      <textarea typeof="text" className='search-input__textarea'
-        placeholder='search' onChange={handleInputChange}
+      <textarea
+        typeof="text"
+        className="search-input__textarea"
         onKeyDown={handleSearchKeyEnter}
-        autoFocus >
-      </textarea>
+        placeholder="Search..."
+        ref={ref}
+        onChange={handleInputChange}
+        autoFocus
+      />
     </div>
   )
 };
