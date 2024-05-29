@@ -1,9 +1,10 @@
 .dropdown {
+  font-family: arial;
+  width: 140px;
+  height: 47px;
   position: relative;
-  top: 108px;
-  right: 134px;
-  height: 100%;
-  width: 60%;
+  top: 105px;
+  left: 538px;
 
   &__button {
     cursor: pointer;
@@ -18,10 +19,9 @@
     font-size: 16px;
     align-items: center;
     position: relative;
-    left: 908px;
+    right: 0px;
     width: 256px;
     top: 7px;
-
   }
 
   .fa-angle-down,
@@ -36,7 +36,7 @@
 
 .dropdown-menu {
   position: relative;
-  left: 657px;
+  right: 251px;
   top: 7px;
   border: 1px solid #A5A5A5;
   width: 425px;

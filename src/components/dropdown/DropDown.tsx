@@ -9,7 +9,7 @@ const DropDown = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  const Button = () => {
+  const DropdpownButton = () => {
     return (
       <button className="dropdown__button" onClick={() => setIsOpen(!isOpen)}>Dropdown
         <i className={getUpdateIcon(isOpen)}></i>
@@ -33,7 +33,7 @@ const DropDown = () => {
 
   return (
     <div className="dropdown" ref={dropdownRef}>
-      <Button />
+      <DropdpownButton />
       {isOpen && <DropDownMenu data={brandData} />}
     </div>
   )
